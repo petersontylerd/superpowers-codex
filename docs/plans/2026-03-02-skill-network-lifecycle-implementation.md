@@ -20,6 +20,12 @@
 - Multi-agent workflow removal policy is **delete** (remove skills/dirs and references, do not deprecate).
 - A broad repo-wide `rg` sweep to remove/replace any leftover multi-agent references is explicitly approved.
 
+## Assumptions (Locked)
+
+- Base branch is `main` (fallback `master` if this repo uses it).
+- All commands are run from the worktree root at `.worktrees/skill-network-lifecycle` unless explicitly stated.
+- `rg` (ripgrep) is available; if not, replace `rg -n <pattern> <path>` with `grep -RIn <pattern> <path>`.
+
 ## Acceptance Checks (Process “Tests”)
 
 These checks should fail before changes and pass after.
@@ -36,6 +42,28 @@ These checks should fail before changes and pass after.
 - Repo must not contain multi-agent workflow skills (or references) that compete with the single-path lifecycle.
 
 ---
+
+## Preflight (One-Time)
+
+Run from the *base* checkout (not the worktree yet):
+
+- `cd /home/ubuntu/.codex/superpowers-codex`
+- `git fetch origin`
+- `git worktree list`
+  - Expected: a line for `.worktrees/skill-network-lifecycle`
+  - If missing, create it:
+    - `mkdir -p .worktrees`
+    - `git worktree add .worktrees/skill-network-lifecycle -b feat/skill-network-lifecycle`
+
+Then enter the worktree and verify you’re in the right place:
+
+- `cd /home/ubuntu/.codex/superpowers-codex/.worktrees/skill-network-lifecycle`
+- `git rev-parse --show-toplevel`
+  - Expected: ends with `.worktrees/skill-network-lifecycle`
+- `git branch --show-current`
+  - Expected: `feat/skill-network-lifecycle`
+- `git status -sb`
+  - Expected: clean working tree before starting Task 1
 
 ### Task 1: Update `brainstorming` bridge to worktrees
 
@@ -80,10 +108,13 @@ Run:
 **Files:**
 - Modify: `skills/using-git-worktrees/SKILL.md`
 
-**Step 1: Write failing checks (confirm global option exists)**
+**Step 1: Write failing checks (confirm global option + subagent references exist)**
 
 Run: `rg -n "~/.config/superpowers/worktrees" skills/using-git-worktrees/SKILL.md`
 Expected: MATCH (remove it).
+
+Run: `rg -n "subagent-driven-development" skills/using-git-worktrees/SKILL.md`
+Expected: MATCH (remove/replace it).
 
 **Step 2: Edit `skills/using-git-worktrees/SKILL.md` minimally**
 
@@ -96,6 +127,7 @@ Required changes:
   - Branch must be `feat/<slug>`.
   - Command example should use: `git worktree add .worktrees/<slug> -b feat/<slug>`.
 - Explicitly forbid `/tmp` and other non-repo worktree paths.
+- Remove/replace any guidance that makes `subagent-driven-development` REQUIRED; execution should flow through `executing-plans` (with `/review` checkpoints) instead.
 
 **Step 3: Re-run checks**
 
@@ -107,6 +139,9 @@ Expected: MATCH.
 
 Run: `rg -n "feat/<slug>" skills/using-git-worktrees/SKILL.md`
 Expected: MATCH.
+
+Run: `rg -n "subagent-driven-development" skills/using-git-worktrees/SKILL.md`
+Expected: NO MATCH.
 
 **Step 4: Commit**
 
@@ -143,7 +178,7 @@ Keep existing guidance about `docs/plans/...` location.
 
 **Step 3: Re-run check**
 
-Run: `rg -n "feat/\*" skills/writing-plans/SKILL.md`
+Run: `rg -n -F "feat/*" skills/writing-plans/SKILL.md`
 Expected: MATCH.
 
 **Step 4: Commit**
@@ -158,6 +193,11 @@ Run:
 
 **Files:**
 - Modify: `skills/executing-plans/SKILL.md`
+
+**Step 0: Write failing check (confirm `/review` isn’t already required)**
+
+Run: `rg -n "/review" skills/executing-plans/SKILL.md`
+Expected: NO MATCH (we will add it).
 
 **Step 1: Add Step 0 (pre-flight)**
 
@@ -203,14 +243,15 @@ Run:
 **Step 1: Write failing checks (locate all multi-agent references)**
 
 Run:
-- `rg -n "subagent|multi-agent|parallel agent|dispatch" skills docs README.md -S`
+- `rg -n "subagent|multi-agent|parallel agent|dispatch" skills docs README.md -S --glob '!docs/plans/**'`
 Expected: MATCHES exist today (we will remove/replace).
 
 **Step 2: Delete multi-agent workflow skills**
 
-Remove the directories:
-- `skills/subagent-driven-development/`
-- `skills/dispatching-parallel-agents/`
+Prefer `git rm` so deletions are tracked cleanly:
+- `git rm -r skills/subagent-driven-development skills/dispatching-parallel-agents`
+Expected:
+- `git status -sb` shows both directories removed.
 
 **Step 3: Remove/replace references**
 
@@ -220,8 +261,8 @@ Remove the directories:
 **Step 4: Re-run checks**
 
 Run:
-- `rg -n "subagent|parallel agent|dispatch" skills docs README.md -S`
-Expected: NO MATCH (or only historical notes explicitly marked as removed/deprecated).
+- `rg -n "subagent|parallel agent|dispatch" skills docs README.md -S --glob '!docs/plans/**'`
+Expected: NO MATCH.
 
 **Step 5: Commit**
 
@@ -236,6 +277,7 @@ Run:
 **Files:**
 - Modify: `skills/writing-skills/SKILL.md`
 - Modify/Delete: `skills/writing-skills/testing-skills-with-subagents.md` (and any other subagent-specific references)
+- Modify: `skills/writing-skills/render-graphs.js` (remove subagent-driven-development examples from CLI usage/help output)
 
 **Step 1: Write failing checks**
 
@@ -250,6 +292,7 @@ Expected: MATCH (we will replace/remove).
   - Write/edit the skill.
   - Use `/review` and a second-pass self-check to find loopholes and rationalizations.
 - Remove or rewrite `testing-skills-with-subagents.md` so it does not require multi-agent features.
+- Update `render-graphs.js` usage examples so they do not reference removed skills.
 
 **Step 3: Re-run checks**
 
@@ -289,13 +332,21 @@ Run:
 **Files:**
 - Modify: `skills/finishing-a-development-branch/SKILL.md`
 
+**Step 0: Write failing checks**
+
+Run: `rg -n "type.*reviewed" skills/finishing-a-development-branch/SKILL.md`
+Expected: NO MATCH (we will add it).
+
+Run: `rg -n -F "reviewed" skills/finishing-a-development-branch/SKILL.md`
+Expected: NO MATCH (we will add a hard gate).
+
 **Step 1: Add hard review gate**
 
 After “tests pass” and before presenting options/executing:
 - Print a short review checklist:
   - `git status`
   - `git log --oneline --decorate -n 20`
-  - diff vs base branch (suggest: `git diff <base>...HEAD --stat`)
+  - diff vs base branch (suggest: `git diff <base>...HEAD --stat` where `<base>` is `main` or `master`)
 - Then STOP and ask user to type `reviewed` to proceed.
 
 **Step 2: Make cleanup rules consistent**
@@ -324,7 +375,7 @@ Run:
 - `rg -n "ONLY skill you invoke after" skills`
 - `rg -n "~/.config/superpowers/worktrees" skills`
 - `rg -n "Never start implementation on main/master" skills`
-- `rg -n "subagent|parallel agent|dispatch" skills docs README.md -S`
+- `rg -n "subagent|parallel agent|dispatch" skills docs README.md -S --glob '!docs/plans/**'`
 
 Expected:
 - No leftover “ONLY after brainstorming” contradictions.
@@ -345,8 +396,10 @@ Run (in the worktree):
 - `git status`
 - `git log --oneline --decorate -n 20`
 - `rg -n "\.worktrees/<slug>|feat/<slug>|reviewed" skills -S`
+- `rg -n "subagent|parallel agent|dispatch" skills docs README.md -S --glob '!docs/plans/**'`
 
 Expected:
 - Clean working tree
 - Commits for each task
 - Updated skills contain the new required bridge + gates.
+- No remaining multi-agent workflow references (outside `docs/plans/`).
