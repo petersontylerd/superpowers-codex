@@ -17,7 +17,7 @@
 - [x] `skills/finishing-a-development-branch/SKILL.md`
 - [x] `skills/receiving-code-review/SKILL.md`
 - [x] `skills/requesting-code-review/SKILL.md`
-- [ ] `skills/requesting-code-review/code-reviewer.md`
+- [x] `skills/requesting-code-review/code-reviewer.md`
 - [x] `skills/systematic-debugging/SKILL.md`
 - [ ] `skills/systematic-debugging/condition-based-waiting.md`
 - [ ] `skills/systematic-debugging/defense-in-depth.md`
@@ -316,6 +316,19 @@ Result:
 - External links: none.
 
 Deficits: see Deficit #11 (external repo/documentation references are too vague; plus some citations appear non-verifiable in this repo context).
+
+### `skills/requesting-code-review/code-reviewer.md`
+
+Commands run:
+```bash
+rg -n '@[A-Za-z0-9_./-]+\\.md|docs/|skills/|superpowers:[a-z0-9-]+|`[^`]+`|https?://' skills/requesting-code-review/code-reviewer.md || true
+```
+
+Result:
+- No outbound references detected (0 matches).
+- External links: none.
+
+Deficits: none found.
 
 ## Deficits
 
