@@ -24,6 +24,8 @@ Before writing the plan:
 
 **Save plans to:** `docs/plans/YYYY-MM-DD-<topic>-implementation.md` **in the target repository/worktree you are actively changing**.
 
+**Paired design doc (recommended):** `docs/plans/YYYY-MM-DD-<topic>-design.md` (typically created during `superpowers:brainstorming`).
+
 If `docs/plans/` does not exist in that repo, create it. Do **not** save project implementation plans into a shared skills library clone (for example `~/.codex/superpowers-codex`) unless the work is to modify that skills library repo itself.
 
 ## Bite-Sized Task Granularity
