@@ -31,7 +31,7 @@
 - [x] `skills/writing-skills/SKILL.md`
 - [x] `skills/writing-skills/persuasion-principles.md`
 - [x] `skills/writing-skills/testing-skills-under-pressure.md`
-- [ ] `skills/writing-skills/graphviz-conventions.dot`
+- [x] `skills/writing-skills/graphviz-conventions.dot`
 - [ ] `skills/writing-skills/render-graphs.js`
 
 ## Evidence (completed checks)
@@ -410,6 +410,19 @@ test -f skills/writing-skills/persuasion-principles.md
 
 Result:
 - Outbound references: `superpowers:test-driven-development` and a same-directory reference to `persuasion-principles.md` (exists).
+- External links: none.
+
+Deficits: none found.
+
+### `skills/writing-skills/graphviz-conventions.dot`
+
+Commands run:
+```bash
+rg -n '@[A-Za-z0-9_./-]+\\.md|docs/|skills/|superpowers:[a-z0-9-]+|`[^`]+`|https?://' skills/writing-skills/graphviz-conventions.dot || true
+```
+
+Result:
+- No outbound references detected.
 - External links: none.
 
 Deficits: none found.
