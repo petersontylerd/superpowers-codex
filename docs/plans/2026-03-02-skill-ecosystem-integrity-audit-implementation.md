@@ -87,7 +87,7 @@ Check:
 
 Run:
 ```bash
-rg -n "`|superpowers:|skills/|docs/|\\.codex/" README.md
+rg -n '\\`|superpowers:|skills/|docs/|\\.codex/' README.md
 ```
 Expected: every referenced file/skill is real or explicitly marked as an example.
 
