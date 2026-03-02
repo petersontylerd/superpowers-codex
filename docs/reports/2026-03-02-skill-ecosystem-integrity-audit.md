@@ -16,7 +16,7 @@
 - [x] `skills/executing-plans/SKILL.md`
 - [x] `skills/finishing-a-development-branch/SKILL.md`
 - [x] `skills/receiving-code-review/SKILL.md`
-- [ ] `skills/requesting-code-review/SKILL.md`
+- [x] `skills/requesting-code-review/SKILL.md`
 - [ ] `skills/requesting-code-review/code-reviewer.md`
 - [ ] `skills/systematic-debugging/SKILL.md`
 - [ ] `skills/systematic-debugging/condition-based-waiting.md`
@@ -178,6 +178,23 @@ Result:
 
 Deficits: see Deficit #6 (mentions `CLAUDE.md` even though this repo is Codex-only; plus `gh api` command is likely incorrect for that endpoint).
 
+### `skills/requesting-code-review/SKILL.md`
+
+Commands run:
+```bash
+rg -n '@[A-Za-z0-9_./-]+\\.md|docs/|skills/|superpowers:[a-z0-9-]+|`[^`]+`|https?://' skills/requesting-code-review/SKILL.md
+rg -n '^name:|^description:' skills/requesting-code-review/SKILL.md
+test -f skills/requesting-code-review/code-reviewer.md
+test -f docs/plans/deployment-plan.md || echo 'docs/plans/deployment-plan.md missing (example?)'
+```
+
+Result:
+- YAML frontmatter present with `name: requesting-code-review` and `description:` starting with “Use when …”.
+- Local reference: `requesting-code-review/code-reviewer.md` exists.
+- Example section references `docs/plans/deployment-plan.md`, which does not exist in this repo.
+
+Deficits: see Deficit #7 (broken plan-path reference in the example).
+
 ## Deficits
 
 | ID | Severity | File | Evidence | Why it matters | Proposed fix | Verification |
@@ -188,6 +205,7 @@ Deficits: see Deficit #6 (mentions `CLAUDE.md` even though this repo is Codex-on
 | 4 | Medium | `skills/brainstorming/SKILL.md` | YAML description is: `\"You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation.\"` | The description includes workflow summary (“Explores … before implementation”) rather than strictly trigger conditions, increasing the chance an agent shortcuts by following metadata instead of reading the skill (CSO trap). | Rewrite description to only state triggering conditions (start with “Use when …”), with no workflow/process summary. | Confirm `description:` remains under ~500 chars, starts with “Use when”, and does not describe steps. |
 | 5 | Medium | `skills/finishing-a-development-branch/SKILL.md` | YAML description ends with “guides completion of development work by presenting structured options for merge, PR, or cleanup” | The description includes workflow summary rather than strictly triggers; this risks metadata-shortcut behavior and bloats the most frequently loaded prompt metadata. | Rewrite description to only state triggering conditions (start with “Use when …”), with no workflow/process summary. | Confirm `description:` starts with “Use when”, stays under ~500 chars, and does not describe steps. |
 | 6 | Medium | `skills/receiving-code-review/SKILL.md` | “You’re absolutely right!” is labeled an explicit `CLAUDE.md` violation; and it instructs `gh api repos/{owner}/{repo}/pulls/{pr}/comments/{id}/replies`. | Repo intent is Codex-only; `CLAUDE.md` reference is ecosystem-noise. The `gh api` endpoint is likely wrong for “reply to a PR review comment” and may mislead users. | Replace `CLAUDE.md` mention with a repo-agnostic “explicit instruction violation” phrasing. Replace the `gh api` example with either a correct endpoint (with a note to confirm via `gh api --help`) or remove the endpoint and instruct “reply in-thread via GitHub UI / correct API; avoid top-level comment”. | Validate the file has no `CLAUDE.md` mentions; validate any retained `gh api` example is accurate (or is clearly marked as an example + verification step). |
+| 7 | Medium | `skills/requesting-code-review/SKILL.md` | Example includes `PLAN_OR_REQUIREMENTS: Task 2 from docs/plans/deployment-plan.md` | This path does not exist in this repo; it reads like a real dependency and breaks referential integrity for readers and for any automated checks. | Change to a clearly hypothetical example path (e.g. `docs/plans/<your-plan>.md`) or reference a file that exists in-repo. | Ensure the example no longer references `docs/plans/deployment-plan.md`, or add an explicit “example path” disclaimer. |
 
 ## Context-Poisoning Candidates
 
