@@ -498,11 +498,27 @@ Result:
 | 13 | Low | `skills/writing-skills/persuasion-principles.md` | Contains specific research claims (e.g. “Meincke et al. (2025)… N=28,000… 33% → 72%…”) and literature citations without any link/identifier. | Readers can’t verify these claims from inside the repo; this can reduce trust and makes it harder to maintain correctness over time. | Add a concrete link/identifier for each cited work (or explicitly label the numbers as illustrative and remove the appearance of precise sourcing). | Confirm the file either contains working links/identifiers or no longer implies precise, citable numeric claims without sources. |
 | 14 | Medium | `skills/systematic-debugging/condition-based-waiting-example.ts` | Imports `ThreadManager` and event types from `~/threads/...` | This is presented as a “complete implementation”, but it is not self-contained and implies modules/types that don’t exist in this repo, creating confusion and context pollution. | Rewrite as a self-contained example (define minimal types/interfaces inline) or convert to Markdown pseudocode that doesn’t pretend to compile. | Confirm the example has no repo-external imports (or that it is explicitly labeled as non-compilable pseudocode). |
 | 15 | Low | `skills/systematic-debugging/find-polluter.sh` | Uses `find . -path "$TEST_PATTERN"` with example `src/**/*.test.ts` and always runs `npm test "$TEST_FILE"`. | As written, this is likely to fail or mislead in many projects: `find -path` pattern semantics differ, `**` may not work, and `npm test` may not accept a bare file arg without `--`. | Clarify constraints (Node projects only), adjust example to a `find` pattern that works broadly, or accept a test-command template. | Run the script on a small fixture (or document an explicit “works with Jest/Vitest when…” constraint) and confirm the example pattern is correct. |
+| 16 | Medium | `skills/executing-plans/SKILL.md` (and/or `skills/finishing-a-development-branch/SKILL.md`) | Neither file references `superpowers:verification-before-completion` despite relying on “verification output” and “tests pass” claims. | This is a workflow seam: the verification gate exists but is not explicitly wired into the execution/finish loop, increasing risk of “completion” claims without the verification discipline skill being loaded. | Add an explicit `**REQUIRED SUB-SKILL:** Use superpowers:verification-before-completion` before any completion/pass claims (e.g., in `executing-plans` Step 3 and/or in `finishing-a-development-branch` Step 1/3). | `rg -n "verification-before-completion" skills/executing-plans/SKILL.md skills/finishing-a-development-branch/SKILL.md` returns at least one intentional reference. |
 
 ## Context-Poisoning Candidates
 
-None identified yet (only `README.md` and `.codex/INSTALL.md` reviewed).
+- `skills/systematic-debugging/condition-based-waiting-example.ts` (Deficit #14): non-portable “complete implementation” code.
+- YAML `description:` fields that summarize workflow (Deficits #4, #5, #8, #9, #10): higher risk of metadata-shortcut behavior.
+- `skills/writing-skills/persuasion-principles.md` (Deficit #13): precise numeric claims without reachable sources.
 
 ## Seam Checks (workflow bridges)
 
-Not reviewed yet.
+Commands run:
+```bash
+rg -n "using-git-worktrees|writing-plans|\\.worktrees/|feat/" skills/brainstorming/SKILL.md
+rg -n "worktree|feat/\\*|main/master|using-git-worktrees|executing-plans" skills/writing-plans/SKILL.md
+rg -n "worktree|main/master|using-git-worktrees|/review|finishing-a-development-branch" skills/executing-plans/SKILL.md
+rg -n "Verify Tests|npm test|cargo test|pytest|go test|worktree remove" skills/finishing-a-development-branch/SKILL.md
+rg -n "verification-before-completion" skills/*/SKILL.md || true
+```
+
+Result:
+- `brainstorming` → `using-git-worktrees` → `writing-plans` handoff is explicitly stated and consistent.
+- `writing-plans` properly gates to worktree + `feat/*` and stops on `main`/`master`.
+- `executing-plans` properly gates to worktree + non-`main`/`master` and hands off to `finishing-a-development-branch`.
+- Gap: `verification-before-completion` is not referenced by `executing-plans` or `finishing-a-development-branch` (Deficit #16).
