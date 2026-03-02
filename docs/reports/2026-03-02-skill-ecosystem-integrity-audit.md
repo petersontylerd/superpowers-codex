@@ -14,7 +14,7 @@
 - [x] `skills/auditing-writing-plans/SKILL.md`
 - [x] `skills/brainstorming/SKILL.md`
 - [x] `skills/executing-plans/SKILL.md`
-- [ ] `skills/finishing-a-development-branch/SKILL.md`
+- [x] `skills/finishing-a-development-branch/SKILL.md`
 - [ ] `skills/receiving-code-review/SKILL.md`
 - [ ] `skills/requesting-code-review/SKILL.md`
 - [ ] `skills/requesting-code-review/code-reviewer.md`
@@ -144,6 +144,23 @@ Result:
 
 Deficits: none found.
 
+### `skills/finishing-a-development-branch/SKILL.md`
+
+Commands run:
+```bash
+rg -n '@[A-Za-z0-9_./-]+\\.md|docs/|skills/|superpowers:[a-z0-9-]+|`[^`]+`|https?://' skills/finishing-a-development-branch/SKILL.md
+rg -n '^name:|^description:' skills/finishing-a-development-branch/SKILL.md
+test -f skills/executing-plans/SKILL.md
+test -f skills/using-git-worktrees/SKILL.md
+```
+
+Result:
+- YAML frontmatter present with `name: finishing-a-development-branch`.
+- Outbound references: only `superpowers:using-git-worktrees` (as plain text) in the pre-flight failure instruction; and “executing-plans” in Integration (no `superpowers:` prefix).
+- External links: none.
+
+Deficits: see Deficit #5 (description includes workflow summary and is not strictly “Use when …” triggers).
+
 ## Deficits
 
 | ID | Severity | File | Evidence | Why it matters | Proposed fix | Verification |
@@ -152,6 +169,7 @@ Deficits: none found.
 | 2 | Medium | `docs/plans/2026-03-02-skill-ecosystem-integrity-audit-design.md` | Remediation section says “After the audit report is reviewed, create: `docs/plans/2026-03-02-skill-ecosystem-integrity-audit-implementation.md`.” | This is misleading because that file already exists and is the audit execution plan; it conflates “audit plan” with “remediation plan”, risking incorrect next steps. | Update the design doc to reference the remediation plan doc (`docs/plans/2026-03-02-skill-ecosystem-integrity-audit-remediations-implementation.md`) and clarify intent. | Ensure the design doc’s referenced remediation plan path exists and matches the plan’s Task 9 output path. |
 | 3 | Low | `skills/auditing-writing-plans/SKILL.md` | H1 is `# Auditing Writing-Plans Plans` | The title is redundant and slightly confusing; it adds friction for humans and risks being repeated verbatim in future references. | Rename H1 to a single, clear name (for example: `# Auditing Writing Plans`). | Re-read the file and confirm the H1 is clear and consistent with the skill name. |
 | 4 | Medium | `skills/brainstorming/SKILL.md` | YAML description is: `\"You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation.\"` | The description includes workflow summary (“Explores … before implementation”) rather than strictly trigger conditions, increasing the chance an agent shortcuts by following metadata instead of reading the skill (CSO trap). | Rewrite description to only state triggering conditions (start with “Use when …”), with no workflow/process summary. | Confirm `description:` remains under ~500 chars, starts with “Use when”, and does not describe steps. |
+| 5 | Medium | `skills/finishing-a-development-branch/SKILL.md` | YAML description ends with “guides completion of development work by presenting structured options for merge, PR, or cleanup” | The description includes workflow summary rather than strictly triggers; this risks metadata-shortcut behavior and bloats the most frequently loaded prompt metadata. | Rewrite description to only state triggering conditions (start with “Use when …”), with no workflow/process summary. | Confirm `description:` starts with “Use when”, stays under ~500 chars, and does not describe steps. |
 
 ## Context-Poisoning Candidates
 
