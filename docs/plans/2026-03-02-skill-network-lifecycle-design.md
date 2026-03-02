@@ -53,7 +53,7 @@ This is the default workflow that the skills must collectively enforce.
    - Verifies `.worktrees/` is ignored; fixes `.gitignore` if needed (allowed on base branch).
    - Verifies baseline state (project-appropriate tests) and stops to ask if baseline is not clean.
 4) In the worktree: write + commit the design doc to `docs/plans/YYYY-MM-DD-<topic>-design.md`.
-5) `writing-plans`: write + commit the implementation plan to `docs/plans/YYYY-MM-DD-<topic>.md`.
+5) `writing-plans`: write + commit the implementation plan to `docs/plans/YYYY-MM-DD-<topic>-implementation.md`.
 6) Execute the plan:
    - Same session: `subagent-driven-development`, or
    - Separate session: `executing-plans`
@@ -114,4 +114,3 @@ None. All required preferences were resolved:
 - Worktree directory matches branch suffix
 - `.gitignore` fix allowed on base branch
 - Human review gate required before any finish/integration actions
-

@@ -16,6 +16,7 @@
 - Keep changes minimal and localized to the targeted skills.
 - Do not introduce new skills or scripts unless strictly required.
 - Preserve existing tone/style where possible; prefer small insertions over rewrites.
+- Implementation plan filenames use the `-implementation.md` suffix (paired with `-design.md`).
 
 ## Acceptance Checks (Process “Tests”)
 
@@ -25,6 +26,7 @@ These checks should fail before changes and pass after.
 - `using-git-worktrees` must always use project-local `.worktrees/` (no global option, no `/tmp`).
 - `using-git-worktrees` must enforce naming: `.worktrees/<slug>` + `feat/<slug>`.
 - `writing-plans` must hard-gate that planning happens in a worktree on `feat/*` unless explicit user consent.
+- `writing-plans` must save implementation plans to `docs/plans/YYYY-MM-DD-<topic>-implementation.md` (paired with `...-design.md`).
 - `writing-plans` must not offer multi-agent execution pathways; it must hand off to `executing-plans` only.
 - `executing-plans` must hard-gate that execution happens in a worktree on non-main branch and must require `/review` checkpoints.
 - `verification-before-completion` must explicitly bind into execution/finishing workflows.
@@ -131,6 +133,9 @@ Add a short pre-flight checklist near the top:
 Update execution handoff to a single pathway:
 - Remove references to `subagent-driven-development` (and multi-path execution choices).
 - Replace with: after saving the plan, **REQUIRED**: use `superpowers:executing-plans` to implement it (and rely on `/review` checkpoints inside that skill).
+
+Update the naming guidance:
+- Change “Save plans to” / examples to `docs/plans/YYYY-MM-DD-<topic>-implementation.md`.
 
 Keep existing guidance about `docs/plans/...` location.
 
