@@ -25,7 +25,7 @@
 - [x] `skills/test-driven-development/SKILL.md`
 - [ ] `skills/test-driven-development/testing-anti-patterns.md`
 - [x] `skills/using-git-worktrees/SKILL.md`
-- [ ] `skills/using-superpowers/SKILL.md`
+- [x] `skills/using-superpowers/SKILL.md`
 - [ ] `skills/verification-before-completion/SKILL.md`
 - [ ] `skills/writing-plans/SKILL.md`
 - [ ] `skills/writing-skills/SKILL.md`
@@ -246,6 +246,21 @@ Result:
 
 Deficits: see Deficit #8 (description includes workflow summary and is not strictly “Use when …” triggers).
 
+### `skills/using-superpowers/SKILL.md`
+
+Commands run:
+```bash
+rg -n '@[A-Za-z0-9_./-]+\\.md|docs/|skills/|superpowers:[a-z0-9-]+|`[^`]+`|https?://' skills/using-superpowers/SKILL.md
+rg -n '^name:|^description:' skills/using-superpowers/SKILL.md
+rg -n 'PlanMode|TodoWrite|Create TodoWrite' skills/using-superpowers/SKILL.md
+```
+
+Result:
+- YAML frontmatter present with `name: using-superpowers`.
+- Outbound references are conceptual (skill discovery paths, “PlanMode”, “TodoWrite” as a mechanism name); no repo-local file paths or external links.
+
+Deficits: see Deficit #9 (description includes workflow summary and is not strictly “Use when …” triggers).
+
 ## Deficits
 
 | ID | Severity | File | Evidence | Why it matters | Proposed fix | Verification |
@@ -258,6 +273,7 @@ Deficits: see Deficit #8 (description includes workflow summary and is not stric
 | 6 | Medium | `skills/receiving-code-review/SKILL.md` | “You’re absolutely right!” is labeled an explicit `CLAUDE.md` violation; and it instructs `gh api repos/{owner}/{repo}/pulls/{pr}/comments/{id}/replies`. | Repo intent is Codex-only; `CLAUDE.md` reference is ecosystem-noise. The `gh api` endpoint is likely wrong for “reply to a PR review comment” and may mislead users. | Replace `CLAUDE.md` mention with a repo-agnostic “explicit instruction violation” phrasing. Replace the `gh api` example with either a correct endpoint (with a note to confirm via `gh api --help`) or remove the endpoint and instruct “reply in-thread via GitHub UI / correct API; avoid top-level comment”. | Validate the file has no `CLAUDE.md` mentions; validate any retained `gh api` example is accurate (or is clearly marked as an example + verification step). |
 | 7 | Medium | `skills/requesting-code-review/SKILL.md` | Example includes `PLAN_OR_REQUIREMENTS: Task 2 from docs/plans/deployment-plan.md` | This path does not exist in this repo; it reads like a real dependency and breaks referential integrity for readers and for any automated checks. | Change to a clearly hypothetical example path (e.g. `docs/plans/<your-plan>.md`) or reference a file that exists in-repo. | Ensure the example no longer references `docs/plans/deployment-plan.md`, or add an explicit “example path” disclaimer. |
 | 8 | Medium | `skills/using-git-worktrees/SKILL.md` | YAML description ends with “creates isolated git worktrees with smart directory selection and safety verification” | The description includes workflow summary rather than strictly triggers; this risks metadata-shortcut behavior and bloats prompt metadata for a frequently invoked workflow skill. | Rewrite description to only state triggering conditions (start with “Use when …”), with no workflow/process summary. | Confirm `description:` starts with “Use when”, stays under ~500 chars, and does not describe steps. |
+| 9 | Medium | `skills/using-superpowers/SKILL.md` | YAML description includes “establishes how to find and use skills, requiring relevant skill loading before ANY response…” | The description includes workflow/behavioral instruction (“requiring … before ANY response”) rather than strictly triggers; this risks metadata-shortcut behavior and increases context cost. | Rewrite description to only state triggering conditions (start with “Use when …”), with no workflow/process summary. | Confirm `description:` starts with “Use when”, stays under ~500 chars, and does not describe steps. |
 
 ## Context-Poisoning Candidates
 
