@@ -11,7 +11,7 @@
 - [x] `docs/plans/.gitkeep`
 - [x] `docs/plans/2026-03-02-skill-ecosystem-integrity-audit-design.md`
 - [x] `skills/auditing-plan-execution/SKILL.md`
-- [ ] `skills/auditing-writing-plans/SKILL.md`
+- [x] `skills/auditing-writing-plans/SKILL.md`
 - [ ] `skills/brainstorming/SKILL.md`
 - [ ] `skills/executing-plans/SKILL.md`
 - [ ] `skills/finishing-a-development-branch/SKILL.md`
@@ -90,12 +90,31 @@ Result:
 
 Deficits: none found.
 
+### `skills/auditing-writing-plans/SKILL.md`
+
+Commands run:
+```bash
+rg -n '@[A-Za-z0-9_./-]+\\.md|docs/|skills/|superpowers:[a-z0-9-]+|`[^`]+`|https?://' skills/auditing-writing-plans/SKILL.md
+test -f skills/writing-plans/SKILL.md
+test -f skills/executing-plans/SKILL.md
+rg -n '^name:|^description:' skills/auditing-writing-plans/SKILL.md
+rg -n '^# ' skills/auditing-writing-plans/SKILL.md | head
+```
+
+Result:
+- YAML frontmatter present with `name: auditing-writing-plans` and `description:` starting with “Use when …”.
+- Outbound references: `superpowers:writing-plans` and `superpowers:executing-plans` (both exist as skills).
+- External links: none.
+
+Deficits: see Deficit #3 (skill title is redundant/confusing).
+
 ## Deficits
 
 | ID | Severity | File | Evidence | Why it matters | Proposed fix | Verification |
 |---:|:--|:--|:--|:--|:--|:--|
 | 1 | Medium | `.codex/INSTALL.md` | “Skills update instantly through the symlink.” | This conflicts with earlier “Restart Codex” guidance and can cause confusion about when a restart is required after updates. | Clarify update behavior (for example: restart required to discover new skills; restart recommended after updates to ensure reload). | Re-read `.codex/INSTALL.md` for a single, non-contradictory instruction; ensure it matches current repo guidance. |
 | 2 | Medium | `docs/plans/2026-03-02-skill-ecosystem-integrity-audit-design.md` | Remediation section says “After the audit report is reviewed, create: `docs/plans/2026-03-02-skill-ecosystem-integrity-audit-implementation.md`.” | This is misleading because that file already exists and is the audit execution plan; it conflates “audit plan” with “remediation plan”, risking incorrect next steps. | Update the design doc to reference the remediation plan doc (`docs/plans/2026-03-02-skill-ecosystem-integrity-audit-remediations-implementation.md`) and clarify intent. | Ensure the design doc’s referenced remediation plan path exists and matches the plan’s Task 9 output path. |
+| 3 | Low | `skills/auditing-writing-plans/SKILL.md` | H1 is `# Auditing Writing-Plans Plans` | The title is redundant and slightly confusing; it adds friction for humans and risks being repeated verbatim in future references. | Rename H1 to a single, clear name (for example: `# Auditing Writing Plans`). | Re-read the file and confirm the H1 is clear and consistent with the skill name. |
 
 ## Context-Poisoning Candidates
 
