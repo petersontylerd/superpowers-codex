@@ -23,7 +23,7 @@
 - [x] `skills/systematic-debugging/defense-in-depth.md`
 - [x] `skills/systematic-debugging/root-cause-tracing.md`
 - [x] `skills/test-driven-development/SKILL.md`
-- [ ] `skills/test-driven-development/testing-anti-patterns.md`
+- [x] `skills/test-driven-development/testing-anti-patterns.md`
 - [x] `skills/using-git-worktrees/SKILL.md`
 - [x] `skills/using-superpowers/SKILL.md`
 - [x] `skills/verification-before-completion/SKILL.md`
@@ -371,6 +371,20 @@ Result:
 
 Deficits: none found.
 
+### `skills/test-driven-development/testing-anti-patterns.md`
+
+Commands run:
+```bash
+rg -n '@[A-Za-z0-9_./-]+\\.md|docs/|skills/|superpowers:[a-z0-9-]+|`[^`]+`|https?://' skills/test-driven-development/testing-anti-patterns.md || true
+test -d docs/examples || echo 'docs/examples missing (example?)'
+```
+
+Result:
+- No local file references detected; contains a generic “docs/examples” suggestion that does not exist in this repo.
+- External links: none.
+
+Deficits: see Deficit #12 (ambiguous `docs/examples` reference).
+
 ## Deficits
 
 | ID | Severity | File | Evidence | Why it matters | Proposed fix | Verification |
@@ -386,6 +400,7 @@ Deficits: none found.
 | 9 | Medium | `skills/using-superpowers/SKILL.md` | YAML description includes “establishes how to find and use skills, requiring relevant skill loading before ANY response…” | The description includes workflow/behavioral instruction (“requiring … before ANY response”) rather than strictly triggers; this risks metadata-shortcut behavior and increases context cost. | Rewrite description to only state triggering conditions (start with “Use when …”), with no workflow/process summary. | Confirm `description:` starts with “Use when”, stays under ~500 chars, and does not describe steps. |
 | 10 | Medium | `skills/verification-before-completion/SKILL.md` | YAML description includes “requires running verification commands and confirming output…” | The description includes workflow summary rather than strictly trigger conditions; this risks metadata-shortcut behavior and increases context cost. | Rewrite description to only state triggering conditions (start with “Use when …”), with no workflow/process summary. | Confirm `description:` starts with “Use when”, stays under ~500 chars, and does not describe steps. |
 | 11 | Low | `skills/writing-skills/SKILL.md` | “Official guidance: Follow Codex skills authoring and discovery conventions (see OpenAI Codex skills documentation and the `openai/skills` repository).” and mentions of “Cialdini, 2021; Meincke et al., 2025” without in-repo references. | As written, this is not a resolvable reference from within this repo (no URL or pinned reference), which reduces trust and increases friction for readers trying to follow it. | Replace with a concrete pointer (URL) or a repo-local reference file; otherwise rephrase as non-cited general guidance. | Confirm the referenced guidance is reachable (or that the text no longer implies a specific source the reader can’t access). |
+| 12 | Low | `skills/test-driven-development/testing-anti-patterns.md` | “Examine actual API response from docs/examples” | `docs/examples` does not exist in this repo; this reads like a repo-local reference and reduces trust in the guidance. | Rephrase as conditional (“from your project’s docs/examples, if available”) or remove the path-like wording and just say “from real API docs/examples”. | Ensure the file no longer implies `docs/examples` exists in this repo (or add it, if that’s desired). |
 
 ## Context-Poisoning Candidates
 
