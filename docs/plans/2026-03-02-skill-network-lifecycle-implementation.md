@@ -173,6 +173,7 @@ Update execution handoff to a single pathway:
 
 Update the naming guidance:
 - Change “Save plans to” / examples to `docs/plans/YYYY-MM-DD-<topic>-implementation.md`.
+- Note pairing with the design doc: `docs/plans/YYYY-MM-DD-<topic>-design.md` (typically created during `brainstorming`).
 
 Keep existing guidance about `docs/plans/...` location.
 
