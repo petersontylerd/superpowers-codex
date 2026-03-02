@@ -2,7 +2,7 @@
 
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
-**Goal:** Remove all non-Codex platform artifacts from `~/.codex/superpowers` while preserving Codex native skill discovery and usage.
+**Goal:** Remove all non-Codex platform artifacts from `~/.codex/superpowers-codex` while preserving Codex native skill discovery and usage.
 
 **Architecture:** Keep `skills/` as the only runtime-critical tree. Retain only Codex install/docs. Delete Claude/Cursor/OpenCode packaging, hooks, commands, tests, and non-Codex docs. Update skill wording so design/plan docs are saved in the *target repo/worktree being built* (not “the skills repo” by default).
 
@@ -155,7 +155,7 @@ Expected: commit created.
 
 Edit `README.md` so it only documents Codex:
 - What superpowers is (skills library)
-- Codex install: clone to `~/.codex/superpowers`, symlink `~/.agents/skills/superpowers -> ~/.codex/superpowers/skills`, restart Codex
+- Codex install: clone to `~/.codex/superpowers-codex`, symlink `~/.agents/skills/superpowers -> ~/.codex/superpowers-codex/skills`, restart Codex
 - How skill discovery works at a high level (brief, Codex-focused)
 - Remove Claude Code / Cursor / OpenCode sections and links
 
@@ -185,7 +185,7 @@ Expected: commit created.
 Change the “Write design doc” instruction to explicitly mean:
 - Save to `docs/plans/YYYY-MM-DD-<topic>-design.md` **in the target repo/worktree being built**.
 - Create `docs/plans/` if missing.
-- Only write into the `~/.codex/superpowers` repo when the user is actually changing this repo.
+- Only write into the `~/.codex/superpowers-codex` repo when the user is actually changing this repo.
 
 **Step 2: Update `skills/writing-plans/SKILL.md`**
 
@@ -229,4 +229,3 @@ Restart Codex, then:
 **Step 4: Commit**
 
 No commit in this task.
-

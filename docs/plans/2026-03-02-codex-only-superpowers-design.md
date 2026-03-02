@@ -25,7 +25,7 @@ Codex skills best practices:
 
 - Skills are discovered from both `$HOME/.agents/skills` and repo-local `.agents/skills` (from `$CWD` upward to repo root).
 - Each skill is a directory containing `SKILL.md`.
-- Symlinked skill folders are supported (our current install uses `~/.agents/skills/superpowers -> ~/.codex/superpowers/skills`).  
+- Symlinked skill folders are supported (our current install uses `~/.agents/skills/superpowers -> ~/.codex/superpowers-codex/skills`).  
 
 References:
 - OpenAI `openai/skills` repository docs (Codex).  
@@ -61,7 +61,7 @@ We will update both:
 To explicitly state:
 
 - Design/plan artifacts are saved in `docs/plans/...` **in the target repository/worktree being built** (create the folder if missing).
-- A shared skills library clone (like `~/.codex/superpowers`) should only receive plans when the user is actively changing that repo.
+- A shared skills library clone (like `~/.codex/superpowers-codex`) should only receive plans when the user is actively changing that repo.
 
 ## Proposed Keep/Delete Map (Repository Level)
 
@@ -125,4 +125,3 @@ So any portion can be reverted cleanly with `git revert`.
 ## Implementation Plan Next Step
 
 Create `docs/plans/2026-03-02-codex-only-superpowers-implementation.md` following the `writing-plans` skill, using cautious tasks and verification gates.
-

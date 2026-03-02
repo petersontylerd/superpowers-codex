@@ -17,7 +17,7 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 **Save plans to:** `docs/plans/YYYY-MM-DD-<feature-name>.md` **in the target repository/worktree you are actively changing**.
 
-If `docs/plans/` does not exist in that repo, create it. Do **not** save project implementation plans into a shared skills library clone (for example `~/.codex/superpowers`) unless the work is to modify that skills library repo itself.
+If `docs/plans/` does not exist in that repo, create it. Do **not** save project implementation plans into a shared skills library clone (for example `~/.codex/superpowers-codex`) unless the work is to modify that skills library repo itself.
 
 ## Bite-Sized Task Granularity
 
