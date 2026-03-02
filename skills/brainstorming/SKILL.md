@@ -55,7 +55,7 @@ digraph brainstorming {
 }
 ```
 
-**The terminal state is invoking using-git-worktrees.** Do NOT invoke frontend-design, mcp-builder, or any other implementation skill. After brainstorming, you MUST invoke using-git-worktrees, then invoke writing-plans.
+**The terminal state is invoking using-git-worktrees.** Do NOT invoke frontend-design, mcp-builder, or any other implementation skill. After brainstorming, you MUST invoke using-git-worktrees, write/commit the design doc, then invoke writing-plans.
 
 ## The Process
 
@@ -81,6 +81,7 @@ digraph brainstorming {
 ## After the Design
 
 **Documentation:**
+- If you're not already in a worktree: STOP and invoke the using-git-worktrees skill to create `.worktrees/<slug>` on branch `feat/<slug>`.
 - Write the validated design to `docs/plans/YYYY-MM-DD-<topic>-design.md` **in the target repository/worktree you are actively changing**.
 - If `docs/plans/` does not exist in that repo, create it.
 - Do **not** save project designs into a shared skills library clone (for example `~/.codex/superpowers-codex`) unless the work is to modify that skills library repo itself.
