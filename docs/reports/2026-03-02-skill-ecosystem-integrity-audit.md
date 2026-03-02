@@ -12,7 +12,7 @@
 - [x] `docs/plans/2026-03-02-skill-ecosystem-integrity-audit-design.md`
 - [x] `skills/auditing-plan-execution/SKILL.md`
 - [x] `skills/auditing-writing-plans/SKILL.md`
-- [ ] `skills/brainstorming/SKILL.md`
+- [x] `skills/brainstorming/SKILL.md`
 - [ ] `skills/executing-plans/SKILL.md`
 - [ ] `skills/finishing-a-development-branch/SKILL.md`
 - [ ] `skills/receiving-code-review/SKILL.md`
@@ -108,6 +108,23 @@ Result:
 
 Deficits: see Deficit #3 (skill title is redundant/confusing).
 
+### `skills/brainstorming/SKILL.md`
+
+Commands run:
+```bash
+rg -n '@[A-Za-z0-9_./-]+\\.md|docs/|skills/|superpowers:[a-z0-9-]+|`[^`]+`|https?://' skills/brainstorming/SKILL.md
+rg -n '^name:|^description:' skills/brainstorming/SKILL.md
+test -f skills/using-git-worktrees/SKILL.md
+test -f skills/writing-plans/SKILL.md
+```
+
+Result:
+- YAML frontmatter present with `name: brainstorming`.
+- Outbound references: `.worktrees/<slug>`, `docs/plans/...-design.md`, and mentions of `using-git-worktrees` / `writing-plans` (both exist as skills).
+- External links: none.
+
+Deficits: see Deficit #4 (description field is workflow-heavy and not strictly “Use when …” triggers).
+
 ## Deficits
 
 | ID | Severity | File | Evidence | Why it matters | Proposed fix | Verification |
@@ -115,6 +132,7 @@ Deficits: see Deficit #3 (skill title is redundant/confusing).
 | 1 | Medium | `.codex/INSTALL.md` | “Skills update instantly through the symlink.” | This conflicts with earlier “Restart Codex” guidance and can cause confusion about when a restart is required after updates. | Clarify update behavior (for example: restart required to discover new skills; restart recommended after updates to ensure reload). | Re-read `.codex/INSTALL.md` for a single, non-contradictory instruction; ensure it matches current repo guidance. |
 | 2 | Medium | `docs/plans/2026-03-02-skill-ecosystem-integrity-audit-design.md` | Remediation section says “After the audit report is reviewed, create: `docs/plans/2026-03-02-skill-ecosystem-integrity-audit-implementation.md`.” | This is misleading because that file already exists and is the audit execution plan; it conflates “audit plan” with “remediation plan”, risking incorrect next steps. | Update the design doc to reference the remediation plan doc (`docs/plans/2026-03-02-skill-ecosystem-integrity-audit-remediations-implementation.md`) and clarify intent. | Ensure the design doc’s referenced remediation plan path exists and matches the plan’s Task 9 output path. |
 | 3 | Low | `skills/auditing-writing-plans/SKILL.md` | H1 is `# Auditing Writing-Plans Plans` | The title is redundant and slightly confusing; it adds friction for humans and risks being repeated verbatim in future references. | Rename H1 to a single, clear name (for example: `# Auditing Writing Plans`). | Re-read the file and confirm the H1 is clear and consistent with the skill name. |
+| 4 | Medium | `skills/brainstorming/SKILL.md` | YAML description is: `\"You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation.\"` | The description includes workflow summary (“Explores … before implementation”) rather than strictly trigger conditions, increasing the chance an agent shortcuts by following metadata instead of reading the skill (CSO trap). | Rewrite description to only state triggering conditions (start with “Use when …”), with no workflow/process summary. | Confirm `description:` remains under ~500 chars, starts with “Use when”, and does not describe steps. |
 
 ## Context-Poisoning Candidates
 
