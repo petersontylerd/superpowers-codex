@@ -68,8 +68,10 @@ Restart Codex, start a new session, and ask for something that should trigger a 
 **Collaboration** 
 - **brainstorming** - Socratic design refinement
 - **writing-plans** - Detailed implementation plans
+- **auditing-writing-plans** - Audit and patch an existing implementation plan before execution
 - **executing-plans** - Batch execution with checkpoints
 - **dispatching-parallel-agents** - Concurrent subagent workflows
+- **auditing-plan-execution** - Audit ongoing execution against a plan and remediate drift in already-started tasks
 - **requesting-code-review** - Pre-review checklist
 - **receiving-code-review** - Responding to feedback
 - **using-git-worktrees** - Parallel development branches
