@@ -95,6 +95,11 @@ Expected: every referenced file/skill is real or explicitly marked as an example
 
 Add rows to the Deficits table with concrete evidence (exact quote + file path).
 
+Also add a short Evidence note in the report (even if no deficits):
+- exact command(s) run
+- 1-line summary of what was found (e.g., match count / which refs were checked)
+- any referenced local paths you spot-checked with `test -f <path>`
+
 ---
 
 ### Task 3: Audit `.codex/INSTALL.md` (installation integrity)
@@ -118,6 +123,10 @@ ls -la /home/ubuntu/.agents/skills/superpowers-codex
 Expected: symlink points to `~/.codex/superpowers-codex/skills`.
 
 **Step 3: Record findings**
+
+Also add a short Evidence note in the report:
+- exact command(s) run (including the symlink check)
+- 1-line summary of whether the symlink target matches the expected path
 
 ---
 

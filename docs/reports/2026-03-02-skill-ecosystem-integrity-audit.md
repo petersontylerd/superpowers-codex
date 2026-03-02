@@ -34,6 +34,31 @@
 - [ ] `skills/writing-skills/graphviz-conventions.dot`
 - [ ] `skills/writing-skills/render-graphs.js`
 
+## Evidence (completed checks)
+
+### `README.md`
+
+Commands run:
+```bash
+rg -n 'superpowers:|skills/|docs/|\\.codex/' README.md
+```
+
+Result: 3 matches (expected). Referenced files checked:
+- `.codex/INSTALL.md` (exists)
+- `skills/writing-skills/SKILL.md` (exists)
+- `LICENSE` (exists)
+
+Deficits: none found.
+
+### `.codex/INSTALL.md`
+
+Commands run:
+```bash
+ls -la /home/ubuntu/.agents/skills/superpowers-codex
+```
+
+Result: symlink points to `/home/ubuntu/.codex/superpowers-codex/skills` (expected).
+
 ## Deficits
 
 | ID | Severity | File | Evidence | Why it matters | Proposed fix | Verification |
@@ -42,4 +67,8 @@
 
 ## Context-Poisoning Candidates
 
+None identified yet (only `README.md` and `.codex/INSTALL.md` reviewed).
+
 ## Seam Checks (workflow bridges)
+
+Not reviewed yet.
