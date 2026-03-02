@@ -15,6 +15,14 @@ Load plan, review critically, execute tasks in batches, report for review betwee
 
 ## The Process
 
+### Step 0: Pre-Flight (Hard Gate)
+
+Before executing any tasks:
+
+- Verify you are **not** on `main`/`master`.
+- Verify you are in a **worktree** (default requirement).
+- If either check fails: **STOP** and invoke `superpowers:using-git-worktrees`.
+
 ### Step 1: Load and Review Plan
 1. Read plan file
 2. Review critically - identify any questions or concerns about the plan
@@ -33,8 +41,11 @@ For each task:
 ### Step 3: Report
 When batch complete:
 - Show what was implemented
-- Show verification output
+- Paste the exact verification command(s) from the plan
+- Paste the relevant output summary (pass/fail, exit code)
 - Say: "Ready for feedback."
+- Run `/review` on the current changes and include the review summary
+- If `/review` finds issues: fix them, re-run verification, and (optionally) re-run `/review` to confirm
 
 ### Step 4: Continue
 Based on feedback:
@@ -45,6 +56,7 @@ Based on feedback:
 ### Step 5: Complete Development
 
 After all tasks complete and verified:
+- Run `/review` one more time after final verification
 - Announce: "I'm using the finishing-a-development-branch skill to complete this work."
 - **REQUIRED SUB-SKILL:** Use superpowers:finishing-a-development-branch
 - Follow that skill to verify tests, present options, execute choice
