@@ -13,9 +13,16 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 **Announce at start:** "I'm using the writing-plans skill to create the implementation plan."
 
-**Context:** This should be run in a dedicated worktree (created by brainstorming skill).
+## Pre-Flight (Hard Gate)
 
-**Save plans to:** `docs/plans/YYYY-MM-DD-<feature-name>.md` **in the target repository/worktree you are actively changing**.
+Before writing the plan:
+
+- Confirm you're in a worktree (default requirement). If you're not: STOP and invoke `superpowers:using-git-worktrees`.
+  - Quick check: in a worktree, `.git` is typically a file (not a directory).
+- Confirm your current branch matches `feat/*`.
+  - If you're on `main`/`master`: STOP and invoke `superpowers:using-git-worktrees` unless the user explicitly requests working on `main`/`master`.
+
+**Save plans to:** `docs/plans/YYYY-MM-DD-<topic>-implementation.md` **in the target repository/worktree you are actively changing**.
 
 If `docs/plans/` does not exist in that repo, create it. Do **not** save project implementation plans into a shared skills library clone (for example `~/.codex/superpowers-codex`) unless the work is to modify that skills library repo itself.
 
@@ -98,21 +105,6 @@ git commit -m "feat: add specific feature"
 
 ## Execution Handoff
 
-After saving the plan, offer execution choice:
+After saving the plan, the next step is REQUIRED:
 
-**"Plan complete and saved to `docs/plans/<filename>.md`. Two execution options:**
-
-**1. Subagent-Driven (this session)** - I dispatch fresh subagent per task, review between tasks, fast iteration
-
-**2. Parallel Session (separate)** - Open new session with executing-plans, batch execution with checkpoints
-
-**Which approach?"**
-
-**If Subagent-Driven chosen:**
-- **REQUIRED SUB-SKILL:** Use superpowers:subagent-driven-development
-- Stay in this session
-- Fresh subagent per task + code review
-
-**If Parallel Session chosen:**
-- Guide them to open new session in worktree
-- **REQUIRED SUB-SKILL:** New session uses superpowers:executing-plans
+- Use `superpowers:executing-plans` to implement the plan task-by-task (with review checkpoints).
