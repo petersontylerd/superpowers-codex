@@ -175,7 +175,7 @@ Checklist:
 
 Run (per file):
 ```bash
-rg -n "@[A-Za-z0-9_./-]+\\.md|docs/|skills/|superpowers:[a-z0-9-]+|`[^`]+`|https?://" <FILE>
+rg -n '@[A-Za-z0-9_./-]+\\.md|docs/|skills/|superpowers:[a-z0-9-]+|`[^`]+`|https?://' <FILE>
 ```
 
 Validation actions:
