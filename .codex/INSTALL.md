@@ -2,6 +2,10 @@
 
 Enable superpowers skills in Codex via native skill discovery. Just clone and symlink.
 
+## How It Works
+
+Codex discovers skills by scanning `~/.agents/skills/` at startup. Superpowers is enabled by making this repo’s `skills/` directory visible there via a single symlink (or Windows junction).
+
 ## Prerequisites
 
 - Git
@@ -64,4 +68,17 @@ Skills update instantly through the symlink.
 rm ~/.agents/skills/superpowers-codex
 ```
 
+**Windows (PowerShell):**
+```powershell
+Remove-Item "$env:USERPROFILE\.agents\skills\superpowers-codex"
+```
+
 Optionally delete the clone: `rm -rf ~/.codex/superpowers-codex`.
+
+## Troubleshooting
+
+### Skills not showing up
+
+1. Verify the symlink/junction: `ls -la ~/.agents/skills/superpowers-codex`
+2. Verify skills exist: `ls -la ~/.codex/superpowers-codex/skills`
+3. Restart Codex (skills are discovered at startup)
