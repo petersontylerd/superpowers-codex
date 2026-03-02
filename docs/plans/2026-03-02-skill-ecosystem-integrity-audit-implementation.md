@@ -32,6 +32,8 @@ Expected: list of recent deletes/renames to pay attention to during reference ch
 
 **Step 4: Create audit report skeleton**
 
+Run: `mkdir -p docs/reports`
+
 Create: `docs/reports/2026-03-02-skill-ecosystem-integrity-audit.md`
 
 Template:
@@ -265,4 +267,3 @@ Each remediation task must include:
 **Step 2: Stop for human review**
 
 Do not implement remediations until the remediation plan is approved.
-
