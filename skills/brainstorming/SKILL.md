@@ -27,8 +27,9 @@ You MUST create a task for each of these items and complete them in order:
 2. **Ask clarifying questions** — one at a time, understand purpose/constraints/success criteria
 3. **Propose 2-3 approaches** — with trade-offs and your recommendation
 4. **Present design** — in sections scaled to their complexity, get user approval after each section
-5. **Write design doc** — save to `docs/plans/YYYY-MM-DD-<topic>-design.md` and commit
-6. **Transition to implementation** — invoke writing-plans skill to create implementation plan
+5. **Create/enter a worktree** — invoke using-git-worktrees skill to create `.worktrees/<slug>` on branch `feat/<slug>`
+6. **Write design doc** — save to `docs/plans/YYYY-MM-DD-<topic>-design.md` and commit
+7. **Transition to implementation** — invoke writing-plans skill to create implementation plan
 
 ## Process Flow
 
@@ -39,6 +40,7 @@ digraph brainstorming {
     "Propose 2-3 approaches" [shape=box];
     "Present design sections" [shape=box];
     "User approves design?" [shape=diamond];
+    "Invoke using-git-worktrees skill" [shape=box];
     "Write design doc" [shape=box];
     "Invoke writing-plans skill" [shape=doublecircle];
 
@@ -47,12 +49,13 @@ digraph brainstorming {
     "Propose 2-3 approaches" -> "Present design sections";
     "Present design sections" -> "User approves design?";
     "User approves design?" -> "Present design sections" [label="no, revise"];
-    "User approves design?" -> "Write design doc" [label="yes"];
+    "User approves design?" -> "Invoke using-git-worktrees skill" [label="yes"];
+    "Invoke using-git-worktrees skill" -> "Write design doc";
     "Write design doc" -> "Invoke writing-plans skill";
 }
 ```
 
-**The terminal state is invoking writing-plans.** Do NOT invoke frontend-design, mcp-builder, or any other implementation skill. The ONLY skill you invoke after brainstorming is writing-plans.
+**The terminal state is invoking using-git-worktrees.** Do NOT invoke frontend-design, mcp-builder, or any other implementation skill. After brainstorming, you MUST invoke using-git-worktrees, then invoke writing-plans.
 
 ## The Process
 
@@ -85,8 +88,9 @@ digraph brainstorming {
 - Commit the design document to git
 
 **Implementation:**
-- Invoke the writing-plans skill to create a detailed implementation plan
-- Do NOT invoke any other skill. writing-plans is the next step.
+- Invoke the using-git-worktrees skill to ensure you're working in `.worktrees/<slug>` on branch `feat/<slug>`
+- Then invoke the writing-plans skill to create a detailed implementation plan
+- Do NOT invoke any other skill. using-git-worktrees → writing-plans is the required bridge.
 
 ## Key Principles
 
