@@ -20,7 +20,7 @@
 - [x] `skills/requesting-code-review/code-reviewer.md`
 - [x] `skills/systematic-debugging/SKILL.md`
 - [x] `skills/systematic-debugging/condition-based-waiting.md`
-- [ ] `skills/systematic-debugging/defense-in-depth.md`
+- [x] `skills/systematic-debugging/defense-in-depth.md`
 - [ ] `skills/systematic-debugging/root-cause-tracing.md`
 - [x] `skills/test-driven-development/SKILL.md`
 - [ ] `skills/test-driven-development/testing-anti-patterns.md`
@@ -340,6 +340,19 @@ test -f skills/systematic-debugging/condition-based-waiting-example.ts
 
 Result:
 - Outbound references: local file `condition-based-waiting-example.ts` is referenced and exists.
+- External links: none.
+
+Deficits: none found.
+
+### `skills/systematic-debugging/defense-in-depth.md`
+
+Commands run:
+```bash
+rg -n '@[A-Za-z0-9_./-]+\\.md|docs/|skills/|superpowers:[a-z0-9-]+|`[^`]+`|https?://' skills/systematic-debugging/defense-in-depth.md || true
+```
+
+Result:
+- No outbound references detected (no `@...md`, no file paths, no skill refs).
 - External links: none.
 
 Deficits: none found.
