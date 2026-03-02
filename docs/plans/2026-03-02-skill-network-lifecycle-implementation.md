@@ -17,6 +17,8 @@
 - Do not introduce new skills or scripts unless strictly required.
 - Preserve existing tone/style where possible; prefer small insertions over rewrites.
 - Implementation plan filenames use the `-implementation.md` suffix (paired with `-design.md`).
+- Multi-agent workflow removal policy is **delete** (remove skills/dirs and references, do not deprecate).
+- A broad repo-wide `rg` sweep to remove/replace any leftover multi-agent references is explicitly approved.
 
 ## Acceptance Checks (Process “Tests”)
 

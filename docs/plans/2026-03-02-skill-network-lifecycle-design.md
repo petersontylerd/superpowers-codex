@@ -33,6 +33,8 @@ Our skills cover important lifecycle phases, but they do not reliably “compose
   - Branch name: `feat/<slug>`
 - If `.worktrees/` exists but is **not ignored**, `using-git-worktrees` may **fix `.gitignore` on the base branch and commit** (explicitly allowed), then proceed.
 - `finishing-a-development-branch` includes a **hard human review gate**: after tests pass, it prints a review checklist and stops until the user explicitly confirms they reviewed.
+- **Multi-agent removal policy:** multi-agent workflow skills and related repo references are removed by **deleting** them (not deprecating).
+- **Repo-wide cleanup allowed:** a broad `rg`-driven sweep to remove/replace any leftover multi-agent references is explicitly approved.
 
 ## External Best-Practice Alignment (Summary)
 
@@ -114,3 +116,5 @@ None. All required preferences were resolved:
 - Worktree directory matches branch suffix
 - `.gitignore` fix allowed on base branch
 - Human review gate required before any finish/integration actions
+- Multi-agent workflow removal policy is **delete**
+- Broad repo-wide reference cleanup is approved
