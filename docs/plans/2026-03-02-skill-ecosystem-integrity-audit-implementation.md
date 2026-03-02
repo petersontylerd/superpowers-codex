@@ -200,7 +200,9 @@ Each deficit row must include:
 - Modify: `docs/reports/2026-03-02-skill-ecosystem-integrity-audit.md`
 - Audit: `skills/requesting-code-review/code-reviewer.md`
 - Audit: `skills/systematic-debugging/condition-based-waiting.md`
+- Audit: `skills/systematic-debugging/condition-based-waiting-example.ts`
 - Audit: `skills/systematic-debugging/defense-in-depth.md`
+- Audit: `skills/systematic-debugging/find-polluter.sh`
 - Audit: `skills/systematic-debugging/root-cause-tracing.md`
 - Audit: `skills/test-driven-development/testing-anti-patterns.md`
 - Audit: `skills/writing-skills/persuasion-principles.md`
@@ -211,6 +213,10 @@ Each deficit row must include:
 **Step 1: Validate any references inside these files**
 
 Same outbound-reference checks as Task 5.
+
+Also add a short Evidence note in the report per audited file:
+- exact command(s) run
+- 1-line summary of what was found (including any `test -f` checks you did)
 
 **Step 2: Context-poison scan**
 
