@@ -18,7 +18,7 @@
 - [x] `skills/receiving-code-review/SKILL.md`
 - [x] `skills/requesting-code-review/SKILL.md`
 - [ ] `skills/requesting-code-review/code-reviewer.md`
-- [ ] `skills/systematic-debugging/SKILL.md`
+- [x] `skills/systematic-debugging/SKILL.md`
 - [ ] `skills/systematic-debugging/condition-based-waiting.md`
 - [ ] `skills/systematic-debugging/defense-in-depth.md`
 - [ ] `skills/systematic-debugging/root-cause-tracing.md`
@@ -194,6 +194,27 @@ Result:
 - Example section references `docs/plans/deployment-plan.md`, which does not exist in this repo.
 
 Deficits: see Deficit #7 (broken plan-path reference in the example).
+
+### `skills/systematic-debugging/SKILL.md`
+
+Commands run:
+```bash
+rg -n '@[A-Za-z0-9_./-]+\\.md|docs/|skills/|superpowers:[a-z0-9-]+|`[^`]+`|https?://' skills/systematic-debugging/SKILL.md
+rg -n '^name:|^description:' skills/systematic-debugging/SKILL.md
+test -f skills/systematic-debugging/root-cause-tracing.md
+test -f skills/systematic-debugging/defense-in-depth.md
+test -f skills/systematic-debugging/condition-based-waiting.md
+test -f skills/test-driven-development/SKILL.md
+test -f skills/verification-before-completion/SKILL.md
+```
+
+Result:
+- YAML frontmatter present with `name: systematic-debugging` and `description:` starting with “Use when …”.
+- Local references to `root-cause-tracing.md`, `defense-in-depth.md`, and `condition-based-waiting.md` resolve and exist.
+- Related skills referenced: `superpowers:test-driven-development` and `superpowers:verification-before-completion` (both exist).
+- External links: none.
+
+Deficits: none found.
 
 ## Deficits
 
