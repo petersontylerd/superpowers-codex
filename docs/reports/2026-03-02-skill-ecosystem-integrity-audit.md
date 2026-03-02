@@ -28,7 +28,7 @@
 - [x] `skills/using-superpowers/SKILL.md`
 - [x] `skills/verification-before-completion/SKILL.md`
 - [x] `skills/writing-plans/SKILL.md`
-- [ ] `skills/writing-skills/SKILL.md`
+- [x] `skills/writing-skills/SKILL.md`
 - [ ] `skills/writing-skills/persuasion-principles.md`
 - [ ] `skills/writing-skills/testing-skills-under-pressure.md`
 - [ ] `skills/writing-skills/graphviz-conventions.dot`
@@ -296,6 +296,27 @@ Result:
 
 Deficits: none found.
 
+### `skills/writing-skills/SKILL.md`
+
+Commands run:
+```bash
+rg -n '@[A-Za-z0-9_./-]+\\.md|docs/|skills/|superpowers:[a-z0-9-]+|`[^`]+`|https?://' skills/writing-skills/SKILL.md
+rg -n '^name:|^description:' skills/writing-skills/SKILL.md
+test -f skills/writing-skills/testing-skills-under-pressure.md
+test -f skills/writing-skills/persuasion-principles.md
+test -f skills/writing-skills/render-graphs.js
+test -f skills/writing-skills/graphviz-conventions.dot
+```
+
+Result:
+- YAML frontmatter present with `name: writing-skills` and `description:` starting with “Use when …”.
+- Local references:
+  - `@testing-skills-under-pressure.md` resolves and exists.
+  - `persuasion-principles.md`, `render-graphs.js`, and `graphviz-conventions.dot` exist.
+- External links: none.
+
+Deficits: see Deficit #11 (external repo/documentation references are too vague; plus some citations appear non-verifiable in this repo context).
+
 ## Deficits
 
 | ID | Severity | File | Evidence | Why it matters | Proposed fix | Verification |
@@ -310,6 +331,7 @@ Deficits: none found.
 | 8 | Medium | `skills/using-git-worktrees/SKILL.md` | YAML description ends with “creates isolated git worktrees with smart directory selection and safety verification” | The description includes workflow summary rather than strictly triggers; this risks metadata-shortcut behavior and bloats prompt metadata for a frequently invoked workflow skill. | Rewrite description to only state triggering conditions (start with “Use when …”), with no workflow/process summary. | Confirm `description:` starts with “Use when”, stays under ~500 chars, and does not describe steps. |
 | 9 | Medium | `skills/using-superpowers/SKILL.md` | YAML description includes “establishes how to find and use skills, requiring relevant skill loading before ANY response…” | The description includes workflow/behavioral instruction (“requiring … before ANY response”) rather than strictly triggers; this risks metadata-shortcut behavior and increases context cost. | Rewrite description to only state triggering conditions (start with “Use when …”), with no workflow/process summary. | Confirm `description:` starts with “Use when”, stays under ~500 chars, and does not describe steps. |
 | 10 | Medium | `skills/verification-before-completion/SKILL.md` | YAML description includes “requires running verification commands and confirming output…” | The description includes workflow summary rather than strictly trigger conditions; this risks metadata-shortcut behavior and increases context cost. | Rewrite description to only state triggering conditions (start with “Use when …”), with no workflow/process summary. | Confirm `description:` starts with “Use when”, stays under ~500 chars, and does not describe steps. |
+| 11 | Low | `skills/writing-skills/SKILL.md` | “Official guidance: Follow Codex skills authoring and discovery conventions (see OpenAI Codex skills documentation and the `openai/skills` repository).” and mentions of “Cialdini, 2021; Meincke et al., 2025” without in-repo references. | As written, this is not a resolvable reference from within this repo (no URL or pinned reference), which reduces trust and increases friction for readers trying to follow it. | Replace with a concrete pointer (URL) or a repo-local reference file; otherwise rephrase as non-cited general guidance. | Confirm the referenced guidance is reachable (or that the text no longer implies a specific source the reader can’t access). |
 
 ## Context-Poisoning Candidates
 
