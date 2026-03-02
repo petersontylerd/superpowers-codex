@@ -13,7 +13,7 @@
 - [x] `skills/auditing-plan-execution/SKILL.md`
 - [x] `skills/auditing-writing-plans/SKILL.md`
 - [x] `skills/brainstorming/SKILL.md`
-- [ ] `skills/executing-plans/SKILL.md`
+- [x] `skills/executing-plans/SKILL.md`
 - [ ] `skills/finishing-a-development-branch/SKILL.md`
 - [ ] `skills/receiving-code-review/SKILL.md`
 - [ ] `skills/requesting-code-review/SKILL.md`
@@ -124,6 +124,25 @@ Result:
 - External links: none.
 
 Deficits: see Deficit #4 (description field is workflow-heavy and not strictly “Use when …” triggers).
+
+### `skills/executing-plans/SKILL.md`
+
+Commands run:
+```bash
+rg -n '@[A-Za-z0-9_./-]+\\.md|docs/|skills/|superpowers:[a-z0-9-]+|`[^`]+`|https?://' skills/executing-plans/SKILL.md
+rg -n '^name:|^description:' skills/executing-plans/SKILL.md
+test -f skills/using-git-worktrees/SKILL.md
+test -f skills/writing-plans/SKILL.md
+test -f skills/finishing-a-development-branch/SKILL.md
+rg -n 'Create TodoWrite' skills/executing-plans/SKILL.md
+```
+
+Result:
+- YAML frontmatter present with `name: executing-plans` and `description:` starting with “Use when …”.
+- Outbound references: `superpowers:using-git-worktrees`, `superpowers:writing-plans`, `superpowers:finishing-a-development-branch` (all exist as skills).
+- Mentions `/review` (CLI-specific) but does not link to external docs.
+
+Deficits: none found.
 
 ## Deficits
 
