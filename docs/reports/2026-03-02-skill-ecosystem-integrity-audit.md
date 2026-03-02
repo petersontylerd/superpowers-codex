@@ -20,7 +20,9 @@
 - [x] `skills/requesting-code-review/code-reviewer.md`
 - [x] `skills/systematic-debugging/SKILL.md`
 - [x] `skills/systematic-debugging/condition-based-waiting.md`
+- [x] `skills/systematic-debugging/condition-based-waiting-example.ts`
 - [x] `skills/systematic-debugging/defense-in-depth.md`
+- [x] `skills/systematic-debugging/find-polluter.sh`
 - [x] `skills/systematic-debugging/root-cause-tracing.md`
 - [x] `skills/test-driven-development/SKILL.md`
 - [x] `skills/test-driven-development/testing-anti-patterns.md`
@@ -344,6 +346,18 @@ Result:
 
 Deficits: none found.
 
+### `skills/systematic-debugging/condition-based-waiting-example.ts`
+
+Commands run:
+```bash
+rg -n "from '~/threads" skills/systematic-debugging/condition-based-waiting-example.ts
+```
+
+Result:
+- Contains project-specific TypeScript imports from `~/threads/...` that do not exist in this repository.
+
+Deficits: see Deficit #14 (example is not self-contained / implies non-existent modules).
+
 ### `skills/systematic-debugging/defense-in-depth.md`
 
 Commands run:
@@ -356,6 +370,19 @@ Result:
 - External links: none.
 
 Deficits: none found.
+
+### `skills/systematic-debugging/find-polluter.sh`
+
+Commands run:
+```bash
+rg -n 'find \\. -path \"\\$TEST_PATTERN\"|npm test \"\\$TEST_FILE\"' skills/systematic-debugging/find-polluter.sh
+```
+
+Result:
+- Script is Node/npm-specific (`npm test "$TEST_FILE"`).
+- Uses `find . -path "$TEST_PATTERN"` with an example pattern like `src/**/*.test.ts`, which may be misleading depending on `find`’s pattern semantics.
+
+Deficits: see Deficit #15 (script/example is likely misleading without stronger constraints or alternate usage).
 
 ### `skills/systematic-debugging/root-cause-tracing.md`
 
@@ -457,6 +484,8 @@ Deficits: none found.
 | 11 | Low | `skills/writing-skills/SKILL.md` | “Official guidance: Follow Codex skills authoring and discovery conventions (see OpenAI Codex skills documentation and the `openai/skills` repository).” and mentions of “Cialdini, 2021; Meincke et al., 2025” without in-repo references. | As written, this is not a resolvable reference from within this repo (no URL or pinned reference), which reduces trust and increases friction for readers trying to follow it. | Replace with a concrete pointer (URL) or a repo-local reference file; otherwise rephrase as non-cited general guidance. | Confirm the referenced guidance is reachable (or that the text no longer implies a specific source the reader can’t access). |
 | 12 | Low | `skills/test-driven-development/testing-anti-patterns.md` | “Examine actual API response from docs/examples” | `docs/examples` does not exist in this repo; this reads like a repo-local reference and reduces trust in the guidance. | Rephrase as conditional (“from your project’s docs/examples, if available”) or remove the path-like wording and just say “from real API docs/examples”. | Ensure the file no longer implies `docs/examples` exists in this repo (or add it, if that’s desired). |
 | 13 | Low | `skills/writing-skills/persuasion-principles.md` | Contains specific research claims (e.g. “Meincke et al. (2025)… N=28,000… 33% → 72%…”) and literature citations without any link/identifier. | Readers can’t verify these claims from inside the repo; this can reduce trust and makes it harder to maintain correctness over time. | Add a concrete link/identifier for each cited work (or explicitly label the numbers as illustrative and remove the appearance of precise sourcing). | Confirm the file either contains working links/identifiers or no longer implies precise, citable numeric claims without sources. |
+| 14 | Medium | `skills/systematic-debugging/condition-based-waiting-example.ts` | Imports `ThreadManager` and event types from `~/threads/...` | This is presented as a “complete implementation”, but it is not self-contained and implies modules/types that don’t exist in this repo, creating confusion and context pollution. | Rewrite as a self-contained example (define minimal types/interfaces inline) or convert to Markdown pseudocode that doesn’t pretend to compile. | Confirm the example has no repo-external imports (or that it is explicitly labeled as non-compilable pseudocode). |
+| 15 | Low | `skills/systematic-debugging/find-polluter.sh` | Uses `find . -path "$TEST_PATTERN"` with example `src/**/*.test.ts` and always runs `npm test "$TEST_FILE"`. | As written, this is likely to fail or mislead in many projects: `find -path` pattern semantics differ, `**` may not work, and `npm test` may not accept a bare file arg without `--`. | Clarify constraints (Node projects only), adjust example to a `find` pattern that works broadly, or accept a test-command template. | Run the script on a small fixture (or document an explicit “works with Jest/Vitest when…” constraint) and confirm the example pattern is correct. |
 
 ## Context-Poisoning Candidates
 
