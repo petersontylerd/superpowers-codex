@@ -1,4 +1,4 @@
-# Testing Skills With Subagents
+# Testing Skills Under Pressure
 
 **Load this reference when:** creating or editing skills, before deployment, to verify they work under pressure and resist rationalization.
 
@@ -7,6 +7,12 @@
 **Testing skills is just TDD applied to process documentation.**
 
 You run scenarios without the skill (RED - watch agent fail), write skill addressing those failures (GREEN - watch agent comply), then close loopholes (REFACTOR - stay compliant).
+
+**Codex-native loop (no extra tooling required):**
+1. Run the scenario **without** the skill (baseline) and capture the failure mode if possible
+2. Write/edit the skill
+3. Run `/review` and a second-pass self-check to look for loopholes/rationalizations
+4. Re-run the scenario **with** the skill and verify compliance
 
 **Core principle:** If you didn't watch an agent fail without the skill, you don't know if the skill prevents the right failures.
 
@@ -49,7 +55,7 @@ This is identical to TDD's "write failing test first" - you MUST see what agents
 **Process:**
 
 - [ ] **Create pressure scenarios** (3+ combined pressures)
-- [ ] **Run WITHOUT skill** - give agents realistic task with pressures
+- [ ] **Run WITHOUT skill** - give the agent a realistic task with pressures
 - [ ] **Document choices and rationalizations** word-for-word
 - [ ] **Identify patterns** - which excuses appear repeatedly?
 - [ ] **Note effective pressures** - which scenarios trigger violations?
@@ -159,6 +165,13 @@ You have access to: [skill-being-tested]
 ```
 
 Make agent believe it's real work, not a quiz.
+
+### Add a Review Checkpoint
+
+After a GREEN run, also run `/review` on the skill changes and read the feedback looking specifically for:
+- Missing STOP conditions
+- Ambiguous rules that can be rationalized
+- Conflicts with other workflow skills
 
 ## REFACTOR Phase: Close Loopholes (Stay Green)
 
