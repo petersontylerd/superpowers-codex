@@ -32,7 +32,7 @@
 - [x] `skills/writing-skills/persuasion-principles.md`
 - [x] `skills/writing-skills/testing-skills-under-pressure.md`
 - [x] `skills/writing-skills/graphviz-conventions.dot`
-- [ ] `skills/writing-skills/render-graphs.js`
+- [x] `skills/writing-skills/render-graphs.js`
 
 ## Evidence (completed checks)
 
@@ -424,6 +424,19 @@ rg -n '@[A-Za-z0-9_./-]+\\.md|docs/|skills/|superpowers:[a-z0-9-]+|`[^`]+`|https
 Result:
 - No outbound references detected.
 - External links: none.
+
+Deficits: none found.
+
+### `skills/writing-skills/render-graphs.js`
+
+Commands run:
+```bash
+rg -n '@[A-Za-z0-9_./-]+\\.md|docs/|skills/|superpowers:[a-z0-9-]+|`[^`]+`|https?://' skills/writing-skills/render-graphs.js || true
+```
+
+Result:
+- No outbound references detected (no `@...md`, no file paths, no skill refs, no external links).
+- Contains shell command examples (`which dot`, `brew install graphviz`, `apt install graphviz`) as platform guidance.
 
 Deficits: none found.
 
