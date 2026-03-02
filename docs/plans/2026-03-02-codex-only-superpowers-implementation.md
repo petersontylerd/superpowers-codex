@@ -39,7 +39,7 @@ No commit in this task.
 **Step 1: Confirm skills symlink resolves**
 
 Run: `readlink -f ~/.agents/skills/superpowers`
-Expected: path ending in `/.codex/superpowers/skills`.
+Expected: path ending in `/.codex/superpowers-codex/skills`.
 
 **Step 2: Confirm skills exist**
 
