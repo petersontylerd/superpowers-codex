@@ -38,7 +38,7 @@ No commit in this task.
 
 **Step 1: Confirm skills symlink resolves**
 
-Run: `readlink -f ~/.agents/skills/superpowers`
+Run: `readlink -f ~/.agents/skills/superpowers-codex`
 Expected: path ending in `/.codex/superpowers-codex/skills`.
 
 **Step 2: Confirm skills exist**
@@ -155,7 +155,7 @@ Expected: commit created.
 
 Edit `README.md` so it only documents Codex:
 - What superpowers is (skills library)
-- Codex install: clone to `~/.codex/superpowers-codex`, symlink `~/.agents/skills/superpowers -> ~/.codex/superpowers-codex/skills`, restart Codex
+- Codex install: clone to `~/.codex/superpowers-codex`, symlink `~/.agents/skills/superpowers-codex -> ~/.codex/superpowers-codex/skills`, restart Codex
 - How skill discovery works at a high level (brief, Codex-focused)
 - Remove Claude Code / Cursor / OpenCode sections and links
 

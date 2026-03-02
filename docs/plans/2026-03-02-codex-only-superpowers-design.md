@@ -25,7 +25,7 @@ Codex skills best practices:
 
 - Skills are discovered from both `$HOME/.agents/skills` and repo-local `.agents/skills` (from `$CWD` upward to repo root).
 - Each skill is a directory containing `SKILL.md`.
-- Symlinked skill folders are supported (our current install uses `~/.agents/skills/superpowers -> ~/.codex/superpowers-codex/skills`).  
+- Symlinked skill folders are supported (our current install uses `~/.agents/skills/superpowers-codex -> ~/.codex/superpowers-codex/skills`).  
 
 References:
 - OpenAI `openai/skills` repository docs (Codex).  
@@ -101,7 +101,7 @@ To explicitly state:
 ### Pre-flight (before deletions)
 
 1. Confirm symlink resolves as expected:
-   - `readlink -f ~/.agents/skills/superpowers` should resolve to this repo’s `skills/`.
+   - `readlink -f ~/.agents/skills/superpowers-codex` should resolve to this repo’s `skills/`.
 2. Prove `skills/**` does not depend on deleted paths:
    - `rg` through `skills/` for references to directories/files slated for deletion.
 
