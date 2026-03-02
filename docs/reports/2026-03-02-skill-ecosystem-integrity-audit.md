@@ -1,7 +1,7 @@
 # Skill Ecosystem Integrity Audit (Manual-First)
 
 **Date:** 2026-03-02  
-**Audited commit:** 2ad0f51d0f6771a510b4e4cbddc60ba7cbf939c3  
+**Audited base commit (origin/main):** 2585b1e335d90ec3d963e4b17b9896e54a4f9929  
 **Worktree:** `.worktrees/skill-ecosystem-integrity-audit`
 
 ## Inventory (review order)
@@ -466,6 +466,18 @@ Result:
 - Contains shell command examples (`which dot`, `brew install graphviz`, `apt install graphviz`) as platform guidance.
 
 Deficits: none found.
+
+### Cross-file integrity sweep
+
+Commands run:
+```bash
+rg -n "docs/plans/|docs/reports/|skills/|\\.codex/|@[A-Za-z0-9_./-]+\\.md" -S .
+rg -n "\\bopencode\\b|\\bcursor\\b|claude-plugin|dispatching-parallel-agents|subagent-driven-development" -S . --glob '!docs/plans/*' || true
+```
+
+Result:
+- References found include the known deficits already logged (e.g., `docs/plans/deployment-plan.md`, `docs/examples`).
+- No legacy artifact hits outside `docs/plans/*` using word-boundary matching.
 
 ## Deficits
 
