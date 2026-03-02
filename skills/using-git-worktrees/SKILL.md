@@ -15,48 +15,27 @@ Git worktrees create isolated workspaces sharing the same repository, allowing w
 
 ## Directory Selection Process
 
-Follow this priority order:
+Always use a project-local `.worktrees/` directory at the repository root.
 
-### 1. Check Existing Directories
-
-```bash
-# Check in priority order
-ls -d .worktrees 2>/dev/null     # Preferred (hidden)
-ls -d worktrees 2>/dev/null      # Alternative
-```
-
-**If found:** Use that directory. If both exist, `.worktrees` wins.
-
-### 2. Check CLAUDE.md
+If it doesn't exist, create it:
 
 ```bash
-grep -i "worktree.*director" CLAUDE.md 2>/dev/null
+mkdir -p .worktrees
 ```
 
-**If preference specified:** Use it without asking.
-
-### 3. Ask User
-
-If no directory exists and no CLAUDE.md preference:
-
-```
-No worktree directory found. Where should I create worktrees?
-
-1. .worktrees/ (project-local, hidden)
-2. ~/.config/superpowers/worktrees/<project-name>/ (global location)
-
-Which would you prefer?
-```
+**Forbidden:**
+- `~/.config/...` (or any other global worktree location)
+- `/tmp` (or any other non-repo worktree path)
 
 ## Safety Verification
 
-### For Project-Local Directories (.worktrees or worktrees)
+### For Project-Local Directory (.worktrees)
 
 **MUST verify directory is ignored before creating worktree:**
 
 ```bash
 # Check if directory is ignored (respects local, global, and system gitignore)
-git check-ignore -q .worktrees 2>/dev/null || git check-ignore -q worktrees 2>/dev/null
+git check-ignore -q .worktrees 2>/dev/null
 ```
 
 **If NOT ignored:**
@@ -68,34 +47,23 @@ Per Jesse's rule "Fix broken things immediately":
 
 **Why critical:** Prevents accidentally committing worktree contents to repository.
 
-### For Global Directory (~/.config/superpowers/worktrees)
-
-No .gitignore verification needed - outside project entirely.
-
 ## Creation Steps
 
-### 1. Detect Project Name
+### 1. Choose a Slug
 
-```bash
-project=$(basename "$(git rev-parse --show-toplevel)")
-```
+A `slug` is a short, kebab-case identifier for the workstream.
+
+- Worktree path: `.worktrees/<slug>`
+- Branch name: `feat/<slug>`
+
+If the user didn't provide one, propose a slug and ask for confirmation.
 
 ### 2. Create Worktree
 
 ```bash
-# Determine full path
-case $LOCATION in
-  .worktrees|worktrees)
-    path="$LOCATION/$BRANCH_NAME"
-    ;;
-  ~/.config/superpowers/worktrees/*)
-    path="~/.config/superpowers/worktrees/$project/$BRANCH_NAME"
-    ;;
-esac
-
 # Create worktree with new branch
-git worktree add "$path" -b "$BRANCH_NAME"
-cd "$path"
+git worktree add .worktrees/<slug> -b feat/<slug>
+cd .worktrees/<slug>
 ```
 
 ### 3. Run Project Setup
@@ -146,9 +114,7 @@ Ready to implement <feature-name>
 | Situation | Action |
 |-----------|--------|
 | `.worktrees/` exists | Use it (verify ignored) |
-| `worktrees/` exists | Use it (verify ignored) |
-| Both exist | Use `.worktrees/` |
-| Neither exists | Check CLAUDE.md → Ask user |
+| `.worktrees/` missing | `mkdir -p .worktrees` |
 | Directory not ignored | Add to .gitignore + commit |
 | Tests fail during baseline | Report failures + ask |
 | No package.json/Cargo.toml | Skip dependency install |
@@ -163,7 +129,7 @@ Ready to implement <feature-name>
 ### Assuming directory location
 
 - **Problem:** Creates inconsistency, violates project conventions
-- **Fix:** Follow priority: existing > CLAUDE.md > ask
+- **Fix:** Always use `.worktrees/` (create if missing)
 
 ### Proceeding with failing tests
 
@@ -180,9 +146,9 @@ Ready to implement <feature-name>
 ```
 You: I'm using the using-git-worktrees skill to set up an isolated workspace.
 
-[Check .worktrees/ - exists]
+[Ensure .worktrees/ exists]
 [Verify ignored - git check-ignore confirms .worktrees/ is ignored]
-[Create worktree: git worktree add .worktrees/auth -b feature/auth]
+[Create worktree: git worktree add .worktrees/auth -b feat/auth]
 [Run npm install]
 [Run npm test - 47 passing]
 
@@ -197,11 +163,10 @@ Ready to implement auth feature
 - Create worktree without verifying it's ignored (project-local)
 - Skip baseline test verification
 - Proceed with failing tests without asking
-- Assume directory location when ambiguous
-- Skip CLAUDE.md check
+- Create worktrees outside the repo (for example `/tmp` or `~/.config/...`)
 
 **Always:**
-- Follow directory priority: existing > CLAUDE.md > ask
+- Use `.worktrees/` (create if missing)
 - Verify directory is ignored for project-local
 - Auto-detect and run project setup
 - Verify clean test baseline
@@ -210,7 +175,6 @@ Ready to implement auth feature
 
 **Called by:**
 - **brainstorming** (Phase 4) - REQUIRED when design is approved and implementation follows
-- **subagent-driven-development** - REQUIRED before executing any tasks
 - **executing-plans** - REQUIRED before executing any tasks
 - Any skill needing isolated workspace
 
