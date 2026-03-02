@@ -78,7 +78,9 @@ digraph brainstorming {
 ## After the Design
 
 **Documentation:**
-- Write the validated design to `docs/plans/YYYY-MM-DD-<topic>-design.md`
+- Write the validated design to `docs/plans/YYYY-MM-DD-<topic>-design.md` **in the target repository/worktree you are actively changing**.
+- If `docs/plans/` does not exist in that repo, create it.
+- Do **not** save project designs into a shared skills library clone (for example `~/.codex/superpowers`) unless the work is to modify that skills library repo itself.
 - Use elements-of-style:writing-clearly-and-concisely skill if available
 - Commit the design document to git
 
