@@ -137,3 +137,10 @@ From 24 failure memories:
 Run the command. Read the output. THEN claim the result.
 
 This is non-negotiable.
+
+## Integration
+
+This gate applies directly to:
+
+- `superpowers:executing-plans` batch reporting and task completion (including `/review` checkpoints): any completion/pass claim requires the fresh verification command(s) and output.
+- `superpowers:finishing-a-development-branch` before any “tests pass”, “ready to merge”, “ready to push”, or “safe to clean up” claims: run the relevant command(s) in that session and report the output.
