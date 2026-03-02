@@ -2,7 +2,7 @@
 
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
-**Goal:** Make the existing skills compose into a consistent lifecycle: `brainstorming → using-git-worktrees → writing-plans → (executing-plans|subagent-driven-development) → verification-before-completion → finishing-a-development-branch`, with a hard human-review gate before merge/push/cleanup.
+**Goal:** Make the existing skills compose into a single, consistent lifecycle: `brainstorming → using-git-worktrees → writing-plans → executing-plans (+ /review checkpoints) → verification-before-completion → finishing-a-development-branch`, with a hard human-review gate before merge/push/cleanup.
 
 **Architecture:** Minimal edits to existing `SKILL.md` files to remove contradictions and add explicit required bridges + stop conditions. No new orchestrator skill.
 
@@ -25,10 +25,11 @@ These checks should fail before changes and pass after.
 - `using-git-worktrees` must always use project-local `.worktrees/` (no global option, no `/tmp`).
 - `using-git-worktrees` must enforce naming: `.worktrees/<slug>` + `feat/<slug>`.
 - `writing-plans` must hard-gate that planning happens in a worktree on `feat/*` unless explicit user consent.
-- `executing-plans` must hard-gate that execution happens in a worktree on non-main branch.
-- `subagent-driven-development` must require verification evidence per task.
+- `writing-plans` must not offer multi-agent execution pathways; it must hand off to `executing-plans` only.
+- `executing-plans` must hard-gate that execution happens in a worktree on non-main branch and must require `/review` checkpoints.
 - `verification-before-completion` must explicitly bind into execution/finishing workflows.
 - `finishing-a-development-branch` must stop for explicit human “reviewed” confirmation before merge/push/cleanup actions.
+- Repo must not contain multi-agent workflow skills (or references) that compete with the single-path lifecycle.
 
 ---
 
@@ -111,7 +112,7 @@ Run:
 
 ---
 
-### Task 3: Add a worktree/branch pre-flight gate to `writing-plans`
+### Task 3: Gate `writing-plans` to worktrees and remove multi-path handoff
 
 **Files:**
 - Modify: `skills/writing-plans/SKILL.md`
@@ -126,6 +127,10 @@ Expected: NO MATCH (we will add it).
 Add a short pre-flight checklist near the top:
 - Confirm current branch matches `feat/*` and repo is a worktree.
 - If on `main/master`: STOP and invoke `superpowers:using-git-worktrees` unless user explicitly requests working on main.
+
+Update execution handoff to a single pathway:
+- Remove references to `subagent-driven-development` (and multi-path execution choices).
+- Replace with: after saving the plan, **REQUIRED**: use `superpowers:executing-plans` to implement it (and rely on `/review` checkpoints inside that skill).
 
 Keep existing guidance about `docs/plans/...` location.
 
@@ -142,7 +147,7 @@ Run:
 
 ---
 
-### Task 4: Add execution pre-flight gates and evidence requirements to `executing-plans`
+### Task 4: Make `executing-plans` the single execution pathway (add /review checkpoints)
 
 **Files:**
 - Modify: `skills/executing-plans/SKILL.md`
@@ -160,7 +165,16 @@ In Step 2/3 reporting, require:
 - paste the exact verification command(s) from the plan
 - paste the relevant output summary (pass/fail, exit code)
 
-**Step 3: Commit**
+**Step 3: Bake in `/review` checkpoints**
+
+Add explicit instructions to run Codex CLI `/review`:
+- After each batch report (Step 3), run `/review` on the current changes and include the review summary.
+- If review finds issues: fix, re-run verification, and (optionally) re-run `/review` to confirm.
+- Before Step 5 (Complete Development), run `/review` one more time after final verification.
+
+This bakes independent review into the default workflow using the CLI’s slash command (instead of multi-agent skill flows).
+
+**Step 4: Commit**
 
 Run:
 - `git add skills/executing-plans/SKILL.md`
@@ -168,27 +182,83 @@ Run:
 
 ---
 
-### Task 5: Tighten evidence contract in `subagent-driven-development`
+### Task 5: Remove multi-agent workflow skills and repo-wide references
 
 **Files:**
-- Modify: `skills/subagent-driven-development/SKILL.md`
+- Delete: `skills/subagent-driven-development/SKILL.md` (and its directory contents)
+- Delete: `skills/dispatching-parallel-agents/SKILL.md` (and its directory contents)
+- Modify: `skills/writing-plans/SKILL.md` (if any references remain after Task 3)
+- Modify: `skills/executing-plans/SKILL.md` (ensure no references to subagents remain)
+- Modify: `skills/finishing-a-development-branch/SKILL.md` (remove “Called by subagent-driven-development” references)
+- Modify: `README.md` / `docs/README.codex.md` if they enumerate or recommend multi-agent workflows
+- Modify/Delete: any `skills/writing-skills/*subagent*` references/files (see Task 6)
 
-**Step 1: Minimal additions**
-
-Add explicit requirements:
-- Implementer must report exact verification commands run + outputs.
-- Spec reviewer treats missing evidence as not complete.
-- Code quality reviewer should also check evidence exists.
-
-**Step 2: Commit**
+**Step 1: Write failing checks (locate all multi-agent references)**
 
 Run:
-- `git add skills/subagent-driven-development/SKILL.md`
-- `git commit -m "docs(skills): require verification evidence per task in subagent-driven-development"`
+- `rg -n "subagent|multi-agent|parallel agent|dispatch" skills docs README.md -S`
+Expected: MATCHES exist today (we will remove/replace).
+
+**Step 2: Delete multi-agent workflow skills**
+
+Remove the directories:
+- `skills/subagent-driven-development/`
+- `skills/dispatching-parallel-agents/`
+
+**Step 3: Remove/replace references**
+
+- Replace workflow guidance that previously relied on subagents with `/review` + `executing-plans` checkpoints.
+- Ensure no skill references removed skills as REQUIRED.
+
+**Step 4: Re-run checks**
+
+Run:
+- `rg -n "subagent|parallel agent|dispatch" skills docs README.md -S`
+Expected: NO MATCH (or only historical notes explicitly marked as removed/deprecated).
+
+**Step 5: Commit**
+
+Run:
+- `git add -A`
+- `git commit -m "docs(skills): remove multi-agent workflow path; standardize on executing-plans + /review"`
 
 ---
 
-### Task 6: Add Integration bindings to `verification-before-completion`
+### Task 6: Update `writing-skills` to avoid subagent dependence (use /review for pressure testing)
+
+**Files:**
+- Modify: `skills/writing-skills/SKILL.md`
+- Modify/Delete: `skills/writing-skills/testing-skills-with-subagents.md` (and any other subagent-specific references)
+
+**Step 1: Write failing checks**
+
+Run:
+- `rg -n "subagent" skills/writing-skills -S`
+Expected: MATCH (we will replace/remove).
+
+**Step 2: Minimal edits**
+
+- Replace “subagent pressure scenarios” with a Codex CLI-native loop:
+  - Baseline: run scenario without the skill text and capture the failure mode (if possible).
+  - Write/edit the skill.
+  - Use `/review` and a second-pass self-check to find loopholes and rationalizations.
+- Remove or rewrite `testing-skills-with-subagents.md` so it does not require multi-agent features.
+
+**Step 3: Re-run checks**
+
+Run:
+- `rg -n "subagent" skills/writing-skills -S`
+Expected: NO MATCH.
+
+**Step 4: Commit**
+
+Run:
+- `git add skills/writing-skills`
+- `git commit -m "docs(skills): update writing-skills to use /review instead of subagents"`
+
+---
+
+### Task 7: Add Integration bindings to `verification-before-completion`
 
 **Files:**
 - Modify: `skills/verification-before-completion/SKILL.md`
@@ -196,19 +266,18 @@ Run:
 **Step 1: Add Integration section**
 
 Add a concise section that states this skill’s gate applies to:
-- `executing-plans` reporting and task completion
-- `subagent-driven-development` per-task completion
+- `executing-plans` batch reporting and task completion (including `/review` checkpoint reporting)
 - `finishing-a-development-branch` before any “ready to merge” or “tests pass” claims
 
 **Step 2: Commit**
 
 Run:
 - `git add skills/verification-before-completion/SKILL.md`
-- `git commit -m "docs(skills): bind verification-before-completion into execution and finishing workflows"`
+- `git commit -m "docs(skills): bind verification-before-completion into executing-plans and finishing"`
 
 ---
 
-### Task 7: Add hard human review gate + fix cleanup consistency in `finishing-a-development-branch`
+### Task 8: Add hard human review gate + fix cleanup consistency in `finishing-a-development-branch`
 
 **Files:**
 - Modify: `skills/finishing-a-development-branch/SKILL.md`
@@ -237,7 +306,7 @@ Run:
 
 ---
 
-### Task 8: Cross-skill consistency pass (minimal)
+### Task 9: Cross-skill consistency pass (minimal)
 
 **Files:**
 - Modify: only if contradictions remain.
@@ -248,11 +317,13 @@ Run:
 - `rg -n "ONLY skill you invoke after" skills`
 - `rg -n "~/.config/superpowers/worktrees" skills`
 - `rg -n "Never start implementation on main/master" skills`
+- `rg -n "subagent|parallel agent|dispatch" skills docs README.md -S`
 
 Expected:
 - No leftover “ONLY after brainstorming” contradictions.
 - No global worktree path references.
 - Main-branch warnings remain, but now have explicit STOP+bridge behavior in planning/execution.
+- No multi-agent workflow references remain.
 
 **Step 2: Optional doc touch-up (only if required)**
 
