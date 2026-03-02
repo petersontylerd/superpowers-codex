@@ -6,8 +6,8 @@
 
 ## Inventory (review order)
 
-- [ ] `README.md`
-- [ ] `.codex/INSTALL.md`
+- [x] `README.md`
+- [x] `.codex/INSTALL.md`
 - [ ] `docs/plans/.gitkeep`
 - [ ] `docs/plans/2026-03-02-skill-ecosystem-integrity-audit-design.md`
 - [ ] `skills/auditing-plan-execution/SKILL.md`
@@ -38,8 +38,8 @@
 
 | ID | Severity | File | Evidence | Why it matters | Proposed fix | Verification |
 |---:|:--|:--|:--|:--|:--|:--|
+| 1 | Medium | `.codex/INSTALL.md` | “Skills update instantly through the symlink.” | This conflicts with earlier “Restart Codex” guidance and can cause confusion about when a restart is required after updates. | Clarify update behavior (for example: restart required to discover new skills; restart recommended after updates to ensure reload). | Re-read `.codex/INSTALL.md` for a single, non-contradictory instruction; ensure it matches current repo guidance. |
 
 ## Context-Poisoning Candidates
 
 ## Seam Checks (workflow bridges)
-
