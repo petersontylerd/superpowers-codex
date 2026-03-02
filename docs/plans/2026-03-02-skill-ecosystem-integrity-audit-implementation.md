@@ -244,7 +244,7 @@ Expected: every reference resolves or is explicitly marked as an example.
 
 Run (extend as you discover removed names during audit):
 ```bash
-rg -n "opencode|cursor|claude-plugin|dispatching-parallel-agents|subagent-driven-development" -S . || true
+rg -n "\\bopencode\\b|\\bcursor\\b|claude-plugin|dispatching-parallel-agents|subagent-driven-development" -S . || true
 ```
 Expected: no hits.
 
