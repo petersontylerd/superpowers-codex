@@ -27,7 +27,7 @@
 - [x] `skills/using-git-worktrees/SKILL.md`
 - [x] `skills/using-superpowers/SKILL.md`
 - [x] `skills/verification-before-completion/SKILL.md`
-- [ ] `skills/writing-plans/SKILL.md`
+- [x] `skills/writing-plans/SKILL.md`
 - [ ] `skills/writing-skills/SKILL.md`
 - [ ] `skills/writing-skills/persuasion-principles.md`
 - [ ] `skills/writing-skills/testing-skills-under-pressure.md`
@@ -278,6 +278,23 @@ Result:
 - External links: none.
 
 Deficits: see Deficit #10 (description includes workflow summary and is not strictly “Use when …” triggers).
+
+### `skills/writing-plans/SKILL.md`
+
+Commands run:
+```bash
+rg -n '@[A-Za-z0-9_./-]+\\.md|docs/|skills/|superpowers:[a-z0-9-]+|`[^`]+`|https?://' skills/writing-plans/SKILL.md
+rg -n '^name:|^description:' skills/writing-plans/SKILL.md
+test -f skills/executing-plans/SKILL.md
+```
+
+Result:
+- YAML frontmatter present with `name: writing-plans` and `description:` starting with “Use when …”.
+- Outbound references: `superpowers:using-git-worktrees`, `superpowers:brainstorming`, and `superpowers:executing-plans` (all exist as skills).
+- Uses example commands like `pytest ...` and `git ...` (examples, not repo-specific).
+- External links: none.
+
+Deficits: none found.
 
 ## Deficits
 
