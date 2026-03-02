@@ -22,7 +22,7 @@
 - [ ] `skills/systematic-debugging/condition-based-waiting.md`
 - [ ] `skills/systematic-debugging/defense-in-depth.md`
 - [ ] `skills/systematic-debugging/root-cause-tracing.md`
-- [ ] `skills/test-driven-development/SKILL.md`
+- [x] `skills/test-driven-development/SKILL.md`
 - [ ] `skills/test-driven-development/testing-anti-patterns.md`
 - [ ] `skills/using-git-worktrees/SKILL.md`
 - [ ] `skills/using-superpowers/SKILL.md`
@@ -212,6 +212,22 @@ Result:
 - YAML frontmatter present with `name: systematic-debugging` and `description:` starting with “Use when …”.
 - Local references to `root-cause-tracing.md`, `defense-in-depth.md`, and `condition-based-waiting.md` resolve and exist.
 - Related skills referenced: `superpowers:test-driven-development` and `superpowers:verification-before-completion` (both exist).
+- External links: none.
+
+Deficits: none found.
+
+### `skills/test-driven-development/SKILL.md`
+
+Commands run:
+```bash
+rg -n '@[A-Za-z0-9_./-]+\\.md|docs/|skills/|superpowers:[a-z0-9-]+|`[^`]+`|https?://' skills/test-driven-development/SKILL.md
+rg -n '^name:|^description:' skills/test-driven-development/SKILL.md
+test -f skills/test-driven-development/testing-anti-patterns.md
+```
+
+Result:
+- YAML frontmatter present with `name: test-driven-development` and `description:` starting with “Use when …”.
+- Local `@testing-anti-patterns.md` reference resolves and exists.
 - External links: none.
 
 Deficits: none found.
