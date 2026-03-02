@@ -8,8 +8,8 @@
 
 - [x] `README.md`
 - [x] `.codex/INSTALL.md`
-- [ ] `docs/plans/.gitkeep`
-- [ ] `docs/plans/2026-03-02-skill-ecosystem-integrity-audit-design.md`
+- [x] `docs/plans/.gitkeep`
+- [x] `docs/plans/2026-03-02-skill-ecosystem-integrity-audit-design.md`
 - [ ] `skills/auditing-plan-execution/SKILL.md`
 - [ ] `skills/auditing-writing-plans/SKILL.md`
 - [ ] `skills/brainstorming/SKILL.md`
@@ -59,11 +59,26 @@ ls -la /home/ubuntu/.agents/skills/superpowers-codex
 
 Result: symlink points to `/home/ubuntu/.codex/superpowers-codex/skills` (expected).
 
+### `docs/plans/*`
+
+Commands run:
+```bash
+find docs/plans -maxdepth 1 -type f -print | sort
+```
+
+Result:
+- `docs/plans/.gitkeep`
+- `docs/plans/2026-03-02-skill-ecosystem-integrity-audit-design.md`
+- `docs/plans/2026-03-02-skill-ecosystem-integrity-audit-implementation.md`
+
+Deficits: see Deficit #2 (design doc references remediation plan path incorrectly).
+
 ## Deficits
 
 | ID | Severity | File | Evidence | Why it matters | Proposed fix | Verification |
 |---:|:--|:--|:--|:--|:--|:--|
 | 1 | Medium | `.codex/INSTALL.md` | “Skills update instantly through the symlink.” | This conflicts with earlier “Restart Codex” guidance and can cause confusion about when a restart is required after updates. | Clarify update behavior (for example: restart required to discover new skills; restart recommended after updates to ensure reload). | Re-read `.codex/INSTALL.md` for a single, non-contradictory instruction; ensure it matches current repo guidance. |
+| 2 | Medium | `docs/plans/2026-03-02-skill-ecosystem-integrity-audit-design.md` | Remediation section says “After the audit report is reviewed, create: `docs/plans/2026-03-02-skill-ecosystem-integrity-audit-implementation.md`.” | This is misleading because that file already exists and is the audit execution plan; it conflates “audit plan” with “remediation plan”, risking incorrect next steps. | Update the design doc to reference the remediation plan doc (`docs/plans/2026-03-02-skill-ecosystem-integrity-audit-remediations-implementation.md`) and clarify intent. | Ensure the design doc’s referenced remediation plan path exists and matches the plan’s Task 9 output path. |
 
 ## Context-Poisoning Candidates
 
