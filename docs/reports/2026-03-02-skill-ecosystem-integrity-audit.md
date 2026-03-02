@@ -21,7 +21,7 @@
 - [x] `skills/systematic-debugging/SKILL.md`
 - [x] `skills/systematic-debugging/condition-based-waiting.md`
 - [x] `skills/systematic-debugging/defense-in-depth.md`
-- [ ] `skills/systematic-debugging/root-cause-tracing.md`
+- [x] `skills/systematic-debugging/root-cause-tracing.md`
 - [x] `skills/test-driven-development/SKILL.md`
 - [ ] `skills/test-driven-development/testing-anti-patterns.md`
 - [x] `skills/using-git-worktrees/SKILL.md`
@@ -353,6 +353,20 @@ rg -n '@[A-Za-z0-9_./-]+\\.md|docs/|skills/|superpowers:[a-z0-9-]+|`[^`]+`|https
 
 Result:
 - No outbound references detected (no `@...md`, no file paths, no skill refs).
+- External links: none.
+
+Deficits: none found.
+
+### `skills/systematic-debugging/root-cause-tracing.md`
+
+Commands run:
+```bash
+rg -n '@[A-Za-z0-9_./-]+\\.md|docs/|skills/|superpowers:[a-z0-9-]+|`[^`]+`|https?://' skills/systematic-debugging/root-cause-tracing.md || true
+test -f skills/systematic-debugging/find-polluter.sh
+```
+
+Result:
+- Outbound references: local file `find-polluter.sh` is referenced and exists.
 - External links: none.
 
 Deficits: none found.
