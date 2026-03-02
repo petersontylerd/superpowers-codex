@@ -26,7 +26,7 @@
 - [ ] `skills/test-driven-development/testing-anti-patterns.md`
 - [x] `skills/using-git-worktrees/SKILL.md`
 - [x] `skills/using-superpowers/SKILL.md`
-- [ ] `skills/verification-before-completion/SKILL.md`
+- [x] `skills/verification-before-completion/SKILL.md`
 - [ ] `skills/writing-plans/SKILL.md`
 - [ ] `skills/writing-skills/SKILL.md`
 - [ ] `skills/writing-skills/persuasion-principles.md`
@@ -261,6 +261,24 @@ Result:
 
 Deficits: see Deficit #9 (description includes workflow summary and is not strictly “Use when …” triggers).
 
+### `skills/verification-before-completion/SKILL.md`
+
+Commands run:
+```bash
+rg -n '@[A-Za-z0-9_./-]+\\.md|docs/|skills/|superpowers:[a-z0-9-]+|`[^`]+`|https?://' skills/verification-before-completion/SKILL.md
+rg -n '^name:|^description:' skills/verification-before-completion/SKILL.md
+test -f skills/executing-plans/SKILL.md
+test -f skills/finishing-a-development-branch/SKILL.md
+rg -n 'superpowers:executing-plans|superpowers:finishing-a-development-branch' skills/verification-before-completion/SKILL.md
+```
+
+Result:
+- YAML frontmatter present with `name: verification-before-completion`.
+- Outbound references: `superpowers:executing-plans` and `superpowers:finishing-a-development-branch` (both exist as skills).
+- External links: none.
+
+Deficits: see Deficit #10 (description includes workflow summary and is not strictly “Use when …” triggers).
+
 ## Deficits
 
 | ID | Severity | File | Evidence | Why it matters | Proposed fix | Verification |
@@ -274,6 +292,7 @@ Deficits: see Deficit #9 (description includes workflow summary and is not stric
 | 7 | Medium | `skills/requesting-code-review/SKILL.md` | Example includes `PLAN_OR_REQUIREMENTS: Task 2 from docs/plans/deployment-plan.md` | This path does not exist in this repo; it reads like a real dependency and breaks referential integrity for readers and for any automated checks. | Change to a clearly hypothetical example path (e.g. `docs/plans/<your-plan>.md`) or reference a file that exists in-repo. | Ensure the example no longer references `docs/plans/deployment-plan.md`, or add an explicit “example path” disclaimer. |
 | 8 | Medium | `skills/using-git-worktrees/SKILL.md` | YAML description ends with “creates isolated git worktrees with smart directory selection and safety verification” | The description includes workflow summary rather than strictly triggers; this risks metadata-shortcut behavior and bloats prompt metadata for a frequently invoked workflow skill. | Rewrite description to only state triggering conditions (start with “Use when …”), with no workflow/process summary. | Confirm `description:` starts with “Use when”, stays under ~500 chars, and does not describe steps. |
 | 9 | Medium | `skills/using-superpowers/SKILL.md` | YAML description includes “establishes how to find and use skills, requiring relevant skill loading before ANY response…” | The description includes workflow/behavioral instruction (“requiring … before ANY response”) rather than strictly triggers; this risks metadata-shortcut behavior and increases context cost. | Rewrite description to only state triggering conditions (start with “Use when …”), with no workflow/process summary. | Confirm `description:` starts with “Use when”, stays under ~500 chars, and does not describe steps. |
+| 10 | Medium | `skills/verification-before-completion/SKILL.md` | YAML description includes “requires running verification commands and confirming output…” | The description includes workflow summary rather than strictly trigger conditions; this risks metadata-shortcut behavior and increases context cost. | Rewrite description to only state triggering conditions (start with “Use when …”), with no workflow/process summary. | Confirm `description:` starts with “Use when”, stays under ~500 chars, and does not describe steps. |
 
 ## Context-Poisoning Candidates
 
