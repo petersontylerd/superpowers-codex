@@ -17,7 +17,10 @@ You write test cases (pressure scenarios), watch them fail (baseline behavior), 
 
 **REQUIRED BACKGROUND:** You MUST understand superpowers:test-driven-development before using this skill. That skill defines the fundamental RED-GREEN-REFACTOR cycle. This skill adapts TDD to documentation.
 
-**Official guidance:** Follow Codex skills authoring and discovery conventions (see OpenAI Codex skills documentation and the `openai/skills` repository).
+**Official guidance:** Follow Codex skills authoring and discovery conventions:
+- https://developers.openai.com/codex/skills
+- https://developers.openai.com/codex/skills#create-a-skill
+- https://github.com/openai/skills
 
 ## What is a Skill?
 
