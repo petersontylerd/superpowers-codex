@@ -60,7 +60,7 @@ You should see a symlink (or junction on Windows) pointing to your superpowers s
 cd ~/.codex/superpowers-codex && git pull
 ```
 
-Skills update instantly through the symlink.
+Restart Codex after updating (skills are discovered at startup; a restart is the safest way to ensure changes are picked up).
 
 ## Uninstalling
 
