@@ -169,12 +169,14 @@ LLMs respond to the same persuasion principles as humans. Understanding this psy
 **Cialdini, R. B. (2021).** *Influence: The Psychology of Persuasion (New and Expanded).* Harper Business.
 - Seven principles of persuasion
 - Empirical foundation for influence research
+- https://www.harperacademic.com/book/9780062937650/influence-new-and-expanded
 
 **Meincke, L., Shapiro, D., Duckworth, A. L., Mollick, E., Mollick, L., & Cialdini, R. (2025).** Call Me A Jerk: Persuading AI to Comply with Objectionable Requests. University of Pennsylvania.
 - Tested 7 principles with N=28,000 LLM conversations
 - Compliance increased 33% → 72% with persuasion techniques
 - Authority, commitment, scarcity most effective
 - Validates parahuman model of LLM behavior
+- https://gail.wharton.upenn.edu/research-and-insights/call-me-a-jerk-persuading-ai/
 
 ## Quick Reference
 
