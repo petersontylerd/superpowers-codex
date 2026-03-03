@@ -189,7 +189,7 @@ git commit -m "docs(skills): make receiving-code-review codex-only and correct g
 **Files:**
 - Modify: `skills/requesting-code-review/SKILL.md`
 
-**Step 1: Replace `docs/plans/deployment-plan.md` with a clearly hypothetical path**
+**Step 1: Replace the old `deployment-plan.md` example path under `docs/plans/` with a clearly hypothetical path**
 
 Prefer one of:
 - `docs/plans/<your-plan>.md`
@@ -327,21 +327,21 @@ git commit -m "docs(skills): add concrete Codex skills guidance references"
 
 ---
 
-### Task 12: Fix `docs/examples` implication in testing anti-patterns (Deficit #12)
+### Task 12: Fix docs examples implication in testing anti-patterns (Deficit #12)
 
 **Files:**
 - Modify: `skills/test-driven-development/testing-anti-patterns.md`
 
-**Step 1: Rephrase “docs/examples”**
+**Step 1: Rephrase docs examples wording**
 
 Change the guidance to be conditional and repo-agnostic, for example:
-- “Examine an actual API response from your project’s docs/examples (if available), or from real API docs/examples.”
+- “Examine an actual API response from your project’s docs examples directory (if available), or from real API docs examples.”
 
 **Step 2: Verify**
 
 Run:
 ```bash
-rg -n "docs/examples" skills/test-driven-development/testing-anti-patterns.md && exit 1 || true
+rg -n "docs\\/examples" skills/test-driven-development/testing-anti-patterns.md && exit 1 || true
 ```
 
 **Step 3: Commit**
@@ -494,7 +494,7 @@ rg -n "\\bopencode\\b|\\bcursor\\b|claude-plugin|dispatching-parallel-agents|sub
 Run:
 ```bash
 rg -n "docs/plans/deployment-plan\\.md" -S . && exit 1 || true
-rg -n "docs/examples" -S . && exit 1 || true
+rg -n "docs\\/examples" -S . && exit 1 || true
 ```
 
 **Step 3: Update the audit report status**
@@ -507,4 +507,3 @@ Add a short “Remediation status” section noting which deficits were fixed an
 git add docs/reports/2026-03-02-skill-ecosystem-integrity-audit.md
 git commit -m "docs(audit): record remediation status"
 ```
-

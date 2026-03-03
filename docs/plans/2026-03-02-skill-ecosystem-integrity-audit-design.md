@@ -93,4 +93,4 @@ This plan will translate each deficit into bite-sized tasks (including verificat
 
 ## Known likely deficit (seed)
 
-`skills/requesting-code-review/SKILL.md` references `docs/plans/deployment-plan.md`, which does not appear to exist in this repo. This should be validated and either fixed or explicitly marked as an example during the audit.
+`skills/requesting-code-review/SKILL.md` references an example plan path under `docs/plans/` (for example `deployment-plan.md`), which does not appear to exist in this repo. This should be validated and either fixed or explicitly marked as an example during the audit.
