@@ -87,11 +87,10 @@ Include:
 
 After the audit report is reviewed, create:
 
-- `docs/plans/2026-03-02-skill-ecosystem-integrity-audit-implementation.md`
+- `docs/plans/2026-03-02-skill-ecosystem-integrity-audit-remediations-implementation.md`
 
 This plan will translate each deficit into bite-sized tasks (including verification steps and commits).
 
 ## Known likely deficit (seed)
 
 `skills/requesting-code-review/SKILL.md` references `docs/plans/deployment-plan.md`, which does not appear to exist in this repo. This should be validated and either fixed or explicitly marked as an example during the audit.
-
