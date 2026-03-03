@@ -1,6 +1,6 @@
 ---
 name: using-superpowers
-description: Use when starting any conversation - establishes how to find and use skills, requiring relevant skill loading before ANY response including clarifying questions
+description: Use when starting a Codex session and you need to decide which skills apply to the user request.
 ---
 
 <EXTREMELY-IMPORTANT>
