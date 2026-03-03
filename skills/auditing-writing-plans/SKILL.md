@@ -3,7 +3,7 @@ name: auditing-writing-plans
 description: Use when an existing implementation plan (especially one written with superpowers:writing-plans) needs an independent quality audit for gaps, errors, missing concreteness, or oversized steps before execution.
 ---
 
-# Auditing Writing-Plans Plans
+# Auditing Writing Plans
 
 ## Overview
 
