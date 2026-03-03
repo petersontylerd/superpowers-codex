@@ -43,6 +43,7 @@ When batch complete:
 - Show what was implemented
 - Paste the exact verification command(s) from the plan
 - Paste the relevant output summary (pass/fail, exit code)
+- **REQUIRED SUB-SKILL:** Use superpowers:verification-before-completion
 - Say: "Ready for feedback."
 - Run `/review` on the current changes and include the review summary
 - If `/review` finds issues: fix them, re-run verification, and (optionally) re-run `/review` to confirm
