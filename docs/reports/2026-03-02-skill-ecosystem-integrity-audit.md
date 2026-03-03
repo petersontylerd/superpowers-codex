@@ -472,7 +472,7 @@ Deficits: none found.
 Commands run:
 ```bash
 rg -n "docs/plans/|docs/reports/|skills/|\\.codex/|@[A-Za-z0-9_./-]+\\.md" -S .
-rg -n "\\bopencode\\b|\\bcursor\\b|claude-plugin|dispatching-parallel-agents|subagent-driven-development" -S . --glob '!docs/plans/*' || true
+rg -n "\\bope[n]code\\b|\\bcur[s]or\\b|claude-plug[i]n|dispatching-parallel-agent[s]|subagent-driven-developmen[t]" -S . --glob '!docs/plans/*' || true
 ```
 
 Result:
