@@ -1,6 +1,6 @@
 ---
 name: using-superpowers
-description: Use when starting a Codex session and you need to decide which skills apply to the user request.
+description: Use when starting a session and you need to decide which skills apply to the user request.
 ---
 
 <EXTREMELY-IMPORTANT>
@@ -13,7 +13,7 @@ This is not negotiable. This is not optional. You cannot rationalize your way ou
 
 ## How to Access Skills
 
-In Codex, skills are discovered via native skill discovery (from `$HOME/.agents/skills/` and repo-local `.agents/skills/`) and loaded on demand. If your environment requires an explicit action to load a skill's content, do that before responding. If it doesn't, locate the relevant `SKILL.md` and follow it directly.
+Skills are discovered via native skill discovery (from `$HOME/.agents/skills/` and repo-local `.agents/skills/`) and loaded on demand. If your environment requires an explicit action to load a skill's content, do that before responding. If it doesn't, locate the relevant `SKILL.md` and follow it directly.
 
 # Using Skills
 

@@ -8,7 +8,7 @@
 
 You run scenarios without the skill (RED - watch agent fail), write skill addressing those failures (GREEN - watch agent comply), then close loopholes (REFACTOR - stay compliant).
 
-**Codex-native loop (no extra tooling required):**
+**Built-in loop (no extra tooling required):**
 1. Run the scenario **without** the skill (baseline) and capture the failure mode if possible
 2. Write/edit the skill
 3. Run `/review` and a second-pass self-check to look for loopholes/rationalizations

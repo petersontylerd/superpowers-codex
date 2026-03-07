@@ -53,7 +53,7 @@ Then ask the user to provide the plan path.
 
 ### Step 1: Validate writing-plans structure
 Cross-check against `superpowers:writing-plans` requirements:
-- Required header block (title, “For Claude” line, Goal, Architecture, Tech Stack, `---`)
+- Required header block (title, “For the assistant” line, Goal, Architecture, Tech Stack, `---`)
 - Task format + **Files:** with explicit paths
 - Steps are bite-sized and include exact commands + expected outcomes
 - TDD cadence appears (test → run fail → minimal impl → run pass → commit)

@@ -1,5 +1,4 @@
 .worktrees/
 .private-journal/
-.claude/
 .DS_Store
-superpowers-codex.code-workspace
+superpowers.code-workspace

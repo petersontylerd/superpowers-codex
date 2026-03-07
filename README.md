@@ -10,7 +10,7 @@ Once it's teased a spec out of the conversation, it shows it to you in chunks sh
 
 After you've signed off on the design, your agent puts together an implementation plan that's clear enough for an enthusiastic junior engineer with poor taste, no judgement, no project context, and an aversion to testing to follow. It emphasizes true red/green TDD, YAGNI (You Aren't Gonna Need It), and DRY. 
 
-Next up, once you say "go", it executes the plan in batches with checkpoints for your review. It's not uncommon for Codex to be able to work autonomously for a couple hours at a time without deviating from the plan you put together.
+Next up, once you say "go", it executes the plan in batches with checkpoints for your review. It's not uncommon for a capable coding agent to work autonomously for a couple hours at a time without deviating from the plan you put together.
 
 There's a bunch more to it, but that's the core of the system. And because the skills trigger automatically, you don't need to do anything special. Your coding agent just has Superpowers.
 
@@ -26,13 +26,13 @@ Thanks!
 
 ## Installation
 
-### Codex
+### Install
 
-Follow `.codex/INSTALL.md`.
+Follow `INSTALL.md`.
 
 ### Verify Installation
 
-Restart Codex, start a new session, and ask for something that should trigger a skill (for example, "help me plan this feature" or "let's debug this issue"). The agent should automatically invoke the relevant superpowers skill.
+Restart your coding agent, start a new session, and ask for something that should trigger a skill (for example, "help me plan this feature" or "let's debug this issue"). The agent should automatically invoke the relevant superpowers skill.
 
 ## The Basic Workflow
 
@@ -101,10 +101,10 @@ See `skills/writing-skills/SKILL.md` for the complete guide.
 ## Updating
 
 ```bash
-cd ~/.codex/superpowers-codex && git pull
+cd <SUPERPOWERS_DIR> && git pull
 ```
 
-Restart Codex to reload skills if needed.
+Restart your coding agent to reload skills if needed.
 
 ## License
 

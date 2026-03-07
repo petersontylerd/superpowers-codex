@@ -26,7 +26,7 @@ Before writing the plan:
 
 **Paired design doc (recommended):** `docs/plans/YYYY-MM-DD-<topic>-design.md` (typically created during `superpowers:brainstorming`).
 
-If `docs/plans/` does not exist in that repo, create it. Do **not** save project implementation plans into a shared skills library clone (for example `~/.codex/superpowers-codex`) unless the work is to modify that skills library repo itself.
+If `docs/plans/` does not exist in that repo, create it. Do **not** save project implementation plans into a shared skills library clone (for example `~/superpowers-skills`) unless the work is to modify that skills library repo itself.
 
 ## Bite-Sized Task Granularity
 
@@ -44,7 +44,7 @@ If `docs/plans/` does not exist in that repo, create it. Do **not** save project
 ```markdown
 # [Feature Name] Implementation Plan
 
-> **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
+> **For the assistant:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
 **Goal:** [One sentence describing what this builds]
 

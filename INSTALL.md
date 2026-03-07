@@ -33,14 +33,14 @@ Your coding agent discovers skills by scanning `~/.agents/skills/` at startup. S
 
 ## Migrating from old bootstrap
 
-If you installed superpowers before native skill discovery, you need to:
+If you installed Superpowers before native skill discovery, you need to:
 
 1. **Update the repo clone:**
    ```bash
    cd <SUPERPOWERS_DIR> && git pull
    ```
 
-2. **Create the skills symlink** (step 2 above) — this is the new discovery mechanism.
+2. **Create the skills symlink** (step 2 above) — this is the discovery mechanism.
 
 3. **Remove the old bootstrap block** from your agent config (any block referencing a `bootstrap` command for Superpowers is no longer needed).
 
@@ -52,7 +52,7 @@ If you installed superpowers before native skill discovery, you need to:
 ls -la ~/.agents/skills/superpowers
 ```
 
-You should see a symlink (or junction on Windows) pointing to your superpowers skills directory.
+You should see a symlink (or junction on Windows) pointing to your Superpowers skills directory.
 
 ## Updating
 

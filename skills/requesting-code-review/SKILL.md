@@ -31,7 +31,7 @@ HEAD_SHA=$(git rev-parse HEAD)
 **2. Run a review pass:**
 
 Use your review mechanism of choice:
-- Codex CLI `/review` on the current changes
+- Automated review command (for example, `/review`) on the current changes (if available)
 - Human reviewer (share diff + context)
 
 **Placeholders:**

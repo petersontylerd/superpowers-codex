@@ -84,7 +84,7 @@ digraph brainstorming {
 - If you're not already in a worktree: STOP and invoke the using-git-worktrees skill to create `.worktrees/<slug>` on branch `feat/<slug>`.
 - Write the validated design to `docs/plans/YYYY-MM-DD-<topic>-design.md` **in the target repository/worktree you are actively changing**.
 - If `docs/plans/` does not exist in that repo, create it.
-- Do **not** save project designs into a shared skills library clone (for example `~/.codex/superpowers-codex`) unless the work is to modify that skills library repo itself.
+- Do **not** save project designs into a shared skills library clone (for example `~/superpowers-skills`) unless the work is to modify that skills library repo itself.
 - Use elements-of-style:writing-clearly-and-concisely skill if available
 - Commit the design document to git
 
