@@ -65,6 +65,7 @@ Restart your coding agent, start a new session, and ask for something that shoul
 
 **Collaboration** 
 - **brainstorming** - Socratic design refinement
+- **refining-backlog-items** - Refine backlog records into crisp, deliverable-anchored descriptions and Definitions of Done
 - **writing-plans** - Detailed implementation plans
 - **auditing-writing-plans** - Audit and patch an existing implementation plan before execution
 - **executing-plans** - Batch execution with checkpoints
