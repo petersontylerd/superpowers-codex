@@ -1,0 +1,5 @@
+# Keep LF line endings consistent for repo files in active use
+*.sh text eol=lf
+*.md text eol=lf
+*.js text eol=lf
+*.ts text eol=lf
